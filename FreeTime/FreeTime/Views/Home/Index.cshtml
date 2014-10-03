@@ -17,6 +17,8 @@
 
     <br />
     <button data-bind="click: changeView">Change View</button>
+    <br />
+    <button data-bind="click: showTravel">Toggle Travel Dots</button>
 
 </div>
 <button data-bind="click: testFunction">All Purpose test button</button>
@@ -39,7 +41,7 @@
         <!-- /ko -->
         <!-- /ko -->
         <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
-            <circle r="6"  stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+            <circle r="6"  stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
         <!-- /ko -->
         <!-- /ko -->
  
@@ -61,7 +63,7 @@
         <!-- /ko -->
         <!-- /ko -->
         <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
-            <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+            <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
         <!-- /ko -->
         <!-- /ko -->
  

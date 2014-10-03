@@ -13,11 +13,23 @@ VM.index = (function (ko, $) {
         self.mapMode = ko.observable('search');
         self.startPerson = ko.observable();
         self.endPerson = ko.observable();
+        self.toggleTravelDots = ko.observable(true);
+        self.toggleTravelDots.subscribe(function (newValue) {
+            if (newValue)
+                self.showTravelDots('visible');
+            else
+                self.showTravelDots('hidden');
+        });
+
+        self.showTravelDots = ko.observable('visible');
+
 
         var floor = 0;
 
-        self.alertInfo = function(data) {
-            alert(ko.toJSON(data, null, 2));
+
+        self.showTravel = function () {
+            self.toggleTravelDots(!self.toggleTravelDots());
+
         }
 
         self.testFunction = function () {

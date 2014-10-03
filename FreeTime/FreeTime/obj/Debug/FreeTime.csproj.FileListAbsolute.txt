@@ -32,3 +32,37 @@ c:\users\jcheng\documents\visual studio 2012\Projects\FreeTime\FreeTime\bin\Syst
 c:\users\jcheng\documents\visual studio 2012\Projects\FreeTime\FreeTime\obj\Debug\FreeTime.csprojResolveAssemblyReference.cache
 c:\users\jcheng\documents\visual studio 2012\Projects\FreeTime\FreeTime\obj\Debug\FreeTime.dll
 c:\users\jcheng\documents\visual studio 2012\Projects\FreeTime\FreeTime\obj\Debug\FreeTime.pdb
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\FreeTime.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\FreeTime.pdb
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\Antlr3.Runtime.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\EntityFramework.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\Newtonsoft.Json.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Net.Http.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Net.Http.Formatting.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Net.Http.WebRequest.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Http.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Http.WebHost.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Mvc.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Optimization.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Providers.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Razor.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebPages.Deployment.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebPages.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebPages.Razor.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\WebGrease.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\EntityFramework.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\Newtonsoft.Json.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Net.Http.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Net.Http.Formatting.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Net.Http.WebRequest.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Http.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Http.WebHost.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Mvc.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.Razor.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebPages.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebPages.Deployment.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebPages.Razor.xml
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\obj\Debug\FreeTime.csprojResolveAssemblyReference.cache
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\obj\Debug\FreeTime.dll
+C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\obj\Debug\FreeTime.pdb
