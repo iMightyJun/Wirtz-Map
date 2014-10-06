@@ -1,6 +1,10 @@
 ﻿@{
     ViewBag.Title = "index";
 }
+<div id="mainOverlay" data-bind="style: {visibility: isSearching }">
+    <div id="loadingSpin"></div>
+
+</div>
 
 <div id ="searchArea">
     Start:<select data-bind="options: mapData, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: startPerson, optionsCaption: 'Choose...' "></select>
