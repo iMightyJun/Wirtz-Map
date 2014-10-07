@@ -7,17 +7,17 @@
 </div>
 
 <div id ="searchArea">
-    Start:<select data-bind="options: mapData, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: startPerson, optionsCaption: 'Choose...' "></select>
+    Start:<select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: startPerson, optionsCaption: 'Choose...' "></select>
 
     <br />
-    Destination:<select data-bind="options: mapData, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: endPerson, optionsCaption: 'Choose...' "></select>
+    Destination:<select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: endPerson, optionsCaption: 'Choose...' "></select>
 
     <button data-bind="click: getPath">Shortest Paths</button>
     <br />
     <button data-bind="click: getPersonInfo">Get Person Info</button>
     <br />
 
-    <select data-bind="options: mapData, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
+    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
 
     <br />
     <button data-bind="click: changeView">Change View</button>

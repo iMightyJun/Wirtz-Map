@@ -306,7 +306,19 @@ namespace FreeTime.Models
             Vertex v2016 = new Vertex(Int32.MaxValue, "2016", Constants.SalesExecutiveX + Constants.ExecutiveOfficeWidth * 2, Constants.SalesExecutiveY, Constants.ExecutiveOfficeWidth, Constants.ExecutiveOfficeHeight);
             Vertex v2017 = new Vertex(Int32.MaxValue, "2017", Constants.SalesExecutiveX + Constants.ExecutiveOfficeWidth * 3, Constants.SalesExecutiveY, Constants.ExecutiveOfficeWidth, Constants.ExecutiveOfficeHeight);
             Vertex v2018 = new Vertex(Int32.MaxValue, "2018", Constants.SalesExecutiveX + Constants.ExecutiveOfficeWidth * 4, Constants.SalesExecutiveY, Constants.ExecutiveOfficeWidth, Constants.ExecutiveOfficeHeight);
-            
+
+            Vertex v2014adj = Vertex.makeAdjacent(ref v2014, "v2014adj", 2, "down", 65);
+            this.nodes.Add(v2014adj);
+            Vertex v2015adj = Vertex.makeAdjacent(ref v2015, "v2015adj", 2, "down", 65);
+            this.nodes.Add(v2015adj);
+            Vertex v2016adj = Vertex.makeAdjacent(ref v2016, "v2016adj", 2, "down", 65);
+            this.nodes.Add(v2016adj);
+            Vertex v2017adj = Vertex.makeAdjacent(ref v2017, "v2017adj", 2, "down", 65);
+            this.nodes.Add(v2017adj);
+            Vertex v2018adj = Vertex.makeAdjacent(ref v2018, "v2018adj", 2, "down", 65);
+            this.nodes.Add(v2018adj);
+
+
             //Sales West Side
             Vertex v201901 = new Vertex(Int32.MaxValue, "2019.01", Constants.Sales201901_16X + Constants.CubicleWidth * 0, Constants.Sales201901_16Y, Constants.CubicleWidth, Constants.CubicleHeight);
             Vertex v201902 = new Vertex(Int32.MaxValue, "2019.02", Constants.Sales201901_16X + Constants.CubicleWidth * 1, Constants.Sales201901_16Y, Constants.CubicleWidth, Constants.CubicleHeight);
@@ -324,10 +336,69 @@ namespace FreeTime.Models
             Vertex v201914 = new Vertex(Int32.MaxValue, "2019.14", Constants.Sales201901_16X + Constants.AllianceInBetween + Constants.CubicleWidth * 5, Constants.Sales201901_16Y + Constants.CubicleHeight, Constants.CubicleWidth, Constants.CubicleHeight);
             Vertex v201915 = new Vertex(Int32.MaxValue, "2019.15", Constants.Sales201901_16X + Constants.AllianceInBetween + Constants.CubicleWidth * 6, Constants.Sales201901_16Y + Constants.CubicleHeight, Constants.CubicleWidth, Constants.CubicleHeight);
             Vertex v201916 = new Vertex(Int32.MaxValue, "2019.16", Constants.Sales201901_16X + Constants.AllianceInBetween + Constants.CubicleWidth * 7, Constants.Sales201901_16Y + Constants.CubicleHeight, Constants.CubicleWidth, Constants.CubicleHeight);
+
+            Vertex v201901adj = Vertex.makeAdjacent(ref v201901, "v201901adj", 2, "up", 35);
+            this.nodes.Add(v201901adj);
+            Vertex v201902adj = Vertex.makeAdjacent(ref v201902, "v201902adj", 2, "up", 35);
+            this.nodes.Add(v201902adj);
+            Vertex v201903adj = Vertex.makeAdjacent(ref v201903, "v201903adj", 2, "up", 35);
+            this.nodes.Add(v201903adj);
+            Vertex v201903walk = Vertex.makeAdjacent(ref v201903adj, "v201903walk", 2, "right", 35);
+            this.nodes.Add(v201903walk);
+            
+            Vertex v201904adj = Vertex.makeAdjacent(ref v201904, "v201904adj", 2, "up", 35);
+            this.nodes.Add(v201904adj);
+            Vertex v201905adj = Vertex.makeAdjacent(ref v201905, "v201905adj", 2, "up", 35);
+            this.nodes.Add(v201905adj);
+            Vertex v201906adj = Vertex.makeAdjacent(ref v201906, "v201906adj", 2, "up", 35);
+            this.nodes.Add(v201906adj);
+            Vertex v201907adj = Vertex.makeAdjacent(ref v201907, "v201907adj", 2, "up", 35);
+            this.nodes.Add(v201907adj);
+            Vertex v201908adj = Vertex.makeAdjacent(ref v201908, "v201908adj", 2, "up", 35);
+            this.nodes.Add(v201908adj);
            
+            Vertex v201909adj = Vertex.makeAdjacent(ref v201909, "v201909adj", 2, "down", 35);
+            this.nodes.Add(v201909adj);
+            Vertex v20191adj = Vertex.makeAdjacent(ref v20191, "v20191adj", 2, "down", 35);
+            this.nodes.Add(v20191adj);
+            Vertex v201911adj = Vertex.makeAdjacent(ref v201911, "v201911adj", 2, "down", 35);
+            this.nodes.Add(v201911adj);
+            Vertex v201911walk = Vertex.makeAdjacent(ref v201911adj, "v201911walk", 2, "right", 35);
+            this.nodes.Add(v201911walk);
+            Vertex v201912adj = Vertex.makeAdjacent(ref v201912, "v201912adj", 2, "down", 35);
+            this.nodes.Add(v201912adj);
+            Vertex v201913adj = Vertex.makeAdjacent(ref v201913, "v201913adj", 2, "down", 35);
+            this.nodes.Add(v201913adj);
+            Vertex v201914adj = Vertex.makeAdjacent(ref v201914, "v201914adj", 2, "down", 35);
+            this.nodes.Add(v201914adj);
+            Vertex v201915adj = Vertex.makeAdjacent(ref v201915, "v201915adj", 2, "down", 35);
+            this.nodes.Add(v201915adj);
+            Vertex v201916adj = Vertex.makeAdjacent(ref v201916, "v201916adj", 2, "down", 35);
+            this.nodes.Add(v201916adj);
+            
+            
             Vertex v2020 = new Vertex(Int32.MaxValue, "2020", Constants.Room2020X, Constants.Room2020Y, Constants.Room2020Width, Constants.Room2020Height);
             Vertex v2021 = new Vertex(Int32.MaxValue, "2021", Constants.Room2021X, Constants.Room2021Y, Constants.Room2021Width, Constants.Room2021Height);
             Vertex v2022 = new Vertex(Int32.MaxValue, "2022", Constants.SecondFloorNStairsX, Constants.SecondFloorNStairsY, Constants.SecondFloorNStairsWidth, Constants.SecondFloorNStairsHeight);
+
+            #region Connect Trade 
+            Vertex.connectVertex(ref v201903walk, ref v201904adj, 1);
+            Vertex.connectVertex(ref v201911walk, ref v201912adj, 1);
+            Vertex.connectVertex(ref v201911walk, ref v201903walk, 1);
+            Vertex.connectVertex(ref v2014adj, ref v201901adj, 1);
+            Vertex.connectVertex(ref v201901adj, ref v201902adj, 1);
+            Vertex.connectVertex(ref v2015adj, ref v201902adj, 1);
+            Vertex.connectVertex(ref v2015adj, ref v201903adj, 1);
+            Vertex.connectVertex(ref v2016adj, ref v201904adj, 1);
+            Vertex.connectVertex(ref v2016adj, ref v201905adj, 1);
+            Vertex.connectVertex(ref v201906adj, ref v201905adj, 1);
+            Vertex.connectVertex(ref v201906adj, ref v2017adj, 1);
+            Vertex.connectVertex(ref v201907adj, ref v2017adj, 1);
+            Vertex.connectVertex(ref v201907adj, ref v201908adj, 1);
+            Vertex.connectVertex(ref v2018adj, ref v201908adj, 1);
+
+
+            #endregion
 
 
             Vertex v2023 = new Vertex(Int32.MaxValue, "2023", 0, 0);
@@ -446,6 +517,29 @@ namespace FreeTime.Models
             Vertex v2053 = new Vertex(Int32.MaxValue, "2053", Constants.SalesDirectorX + Constants.SalesDirectorsW * 1, Constants.SalesDirectorY, Constants.SalesDirectorsW, Constants.SalesDirectorH);
             Vertex v2054 = new Vertex(Int32.MaxValue, "2054", Constants.SalesDirectorX + Constants.SalesDirectorsW * 0, Constants.SalesDirectorY, Constants.SalesDirectorsW, Constants.SalesDirectorH);
 
+            Vertex v2028adj = Vertex.makeAdjacent(ref v2028, "v2028adj", 2, "left", 61);
+            this.nodes.Add(v2028adj);
+            Vertex v2029adj = Vertex.makeAdjacent(ref v2029, "v2029adj", 2, "left", 61);
+            this.nodes.Add(v2029adj);
+            Vertex v2030adj = Vertex.makeAdjacent(ref v2030, "v2030adj", 2, "left", 61);
+            this.nodes.Add(v2030adj);
+            Vertex v2031adj = Vertex.makeAdjacent(ref v2031, "v2031adj", 2, "left", 61);
+            this.nodes.Add(v2031adj);
+            Vertex v2032adj = Vertex.makeAdjacent(ref v2032, "v2032adj", 2, "left", 61);
+            this.nodes.Add(v2032adj);
+            Vertex v2033adj = Vertex.makeAdjacent(ref v2033, "v2033adj", 2, "left", 61);
+            this.nodes.Add(v2033adj);
+            Vertex v2034adj = Vertex.makeAdjacent(ref v2034, "v2034adj", 2, "left", 61);
+            this.nodes.Add(v2034adj);
+            Vertex v2035adj = Vertex.makeAdjacent(ref v2035, "v2035adj", 2, "left", 61);
+            this.nodes.Add(v2035adj);
+            Vertex v2036adj = Vertex.makeAdjacent(ref v2036, "v2036adj", 2, "left", 61);
+            this.nodes.Add(v2036adj);
+            Vertex v2037adj = Vertex.makeAdjacent(ref v2037, "v2037adj", 2, "left", 53);
+            this.nodes.Add(v2037adj);
+            Vertex v2037walk = Vertex.makeAdjacent(ref v2037adj, "v2037walk", 2, "up", 66);
+            this.nodes.Add(v2037walk);
+            
             Vertex v2038adj = Vertex.makeAdjacent(ref v2038, "v2038adj", 2, "up", 66);
             this.nodes.Add(v2038adj);
             Vertex v2039adj = Vertex.makeAdjacent(ref v2039, "v2039adj", 2, "up", 66);
@@ -482,6 +576,16 @@ namespace FreeTime.Models
             this.nodes.Add(v2054adj);
 
             #region Connect Sales Directors
+            Vertex.connectVertex(ref v2028adj, ref v2029adj, 1);
+            Vertex.connectVertex(ref v2029adj, ref v2030adj, 1);
+            Vertex.connectVertex(ref v2030adj, ref v2031adj, 1);
+            Vertex.connectVertex(ref v2031adj, ref v2032adj, 1);
+            Vertex.connectVertex(ref v2032adj, ref v2033adj, 1);
+            Vertex.connectVertex(ref v2033adj, ref v2034adj, 1);
+            Vertex.connectVertex(ref v2034adj, ref v2035adj, 1);
+            Vertex.connectVertex(ref v2035adj, ref v2036adj, 1);
+            Vertex.connectVertex(ref v2037walk, ref v2036adj, 1);
+            Vertex.connectVertex(ref v2037walk, ref v2038adj, 1);
             Vertex.connectVertex(ref v2039adj, ref v2038adj, 1);
             Vertex.connectVertex(ref v2040adj, ref v2039adj, 1);
             Vertex.connectVertex(ref v2041adj, ref v2040adj, 1);
@@ -1721,10 +1825,6 @@ namespace FreeTime.Models
         }
 
 
-        private void addNodes()
-        {
-
-        }
 
         public void addData(List<Person> data)
         {
@@ -1815,6 +1915,8 @@ namespace FreeTime.Models
             foreach (Vertex v in retG.nodes)
             {
                 //System.Diagnostics.Debug.WriteLine(v.name);
+                
+
                 s = "";
                 foreach (Edge e in v.neighbors)
                 {

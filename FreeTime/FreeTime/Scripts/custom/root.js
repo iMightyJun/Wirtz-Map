@@ -3,12 +3,13 @@ var VM = VM = {};
 
 VM.index = (function (ko, $) {
 
-    function home(mapd) {
+    function home(mapd, optionsd) {
         var self = this;
         self.start = ko.observable('');
         self.destination = ko.observable('');
         self.path = ko.observable('M10 10');
-        self.mapData = ko.observableArray(mapd.nodes);
+        self.mapData = ko.observableArray(mapd);
+        self.selectOptions = ko.observableArray(optionsd);
         self.selectedPerson = ko.observable();
         self.mapMode = ko.observable('search');
         self.startPerson = ko.observable();
@@ -148,8 +149,15 @@ VM.index = (function (ko, $) {
 
     }
     function initModule(mapd) {
-        var vm = new home(mapd);
-        ko.applyBindings(new home(mapd));
+        var selectedData = [];
+        mapd.nodes.forEach(function (item) {
+            console.log(ko.toJSON(item, null, 2));
+            if (item.info != null)
+                selectedData.push(item);
+        });
+
+        var vm = new home(mapd.nodes, selectedData);
+        ko.applyBindings(vm);
         return vm;
     }
     return { initModule: initModule };
