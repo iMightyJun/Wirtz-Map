@@ -74,7 +74,7 @@ namespace FreeTime.Models
             this.neighbors = neigh;
         }
 
-        public static Vertex makeAdjacent(ref Vertex v, string n, int floor, string dir, int distance)
+        public static Vertex makeAdjacent(ref Vertex v, string n, int floor, string dir, int distance, int weight = 1)
         {
             Vertex newV = null;
             if (floor == 1)
@@ -98,7 +98,7 @@ namespace FreeTime.Models
 
             }
 
-            connectVertex(ref newV, ref v, 1);
+            connectVertex(ref newV, ref v, weight);
 
             return newV;
             
