@@ -820,7 +820,7 @@ namespace FreeTime.Models
             this.nodes.Add(v2036adj);
             Vertex v2037adj = Vertex.makeAdjacent(ref v2037, "v2037adj", 2, "left", 53);
             this.nodes.Add(v2037adj);
-            Vertex v2037walk = Vertex.makeAdjacent(ref v2037, "v2037walk", 2, "up", 66);
+            Vertex v2037walk = Vertex.makeAdjacent(ref v2037adj, "v2037walk", 2, "up", 66);
             this.nodes.Add(v2037walk);
             
             Vertex v2038adj = Vertex.makeAdjacent(ref v2038, "v2038adj", 2, "up", 66);
@@ -1415,6 +1415,8 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref v2080adj, ref v207504adj, 1);
             Vertex.connectVertex(ref v20811adj, ref v20811walk, 1);
             Vertex.connectVertex(ref v20811adj, ref v208103adj, 1);
+            Vertex.connectVertex(ref v208101adj, ref v208102, 1);
+            Vertex.connectVertex(ref v208108adj, ref v208109, 1);
             #endregion
 
 
