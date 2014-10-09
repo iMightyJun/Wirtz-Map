@@ -115,6 +115,7 @@ namespace FreeTime.Models
             v1060S.info = new Person("South Stair", "", "21060S", "", "", "Stairs");
             Vertex v1060Sadj = Vertex.makeAdjacent(ref v1060S, "v1060Sadj", 2, "right", 61);
             this.nodes.Add(v1060Sadj);
+            Vertex.connectVertex(ref v1060, ref v1060S, 100);
             Vertex v1061 = new Vertex(Int32.MaxValue, "1061", Constants.FoodPrepX, Constants.FoodPrepY, Constants.FoodPrepWidth, Constants.FoodPrepHeight);
             Vertex v1063 = new Vertex(Int32.MaxValue, "1063", 0, 0);
             Vertex v1064 = new Vertex(Int32.MaxValue, "1064", 0, 0);

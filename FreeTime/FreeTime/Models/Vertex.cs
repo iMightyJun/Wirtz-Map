@@ -104,6 +104,19 @@ namespace FreeTime.Models
             
         }
 
+        public static Vertex makeConnect(ref Vertex v, string n, int floor, int x, int y, int weight = 1)
+        {
+            Vertex newV = null;
+            if (floor == 1)
+                n = "1travel" + n;
+            else
+                n = "2travel" + n;
+            newV = new Vertex(v.distance, n, x, y, v.mWidth, v.mHeight);
+
+            connectVertex(ref newV, ref v, weight);
+            return newV;
+        }
+
         public static void connectVertex(ref Vertex a, ref Vertex b, int weight) {
             Edge to = new Edge(ref a, weight);
             b.addNeighbors(ref to);
