@@ -5,15 +5,13 @@ VM.index = (function (ko, $) {
 
     function home(mapd, optionsd) {
         var self = this;
-        self.start = ko.observable('');
-        self.destination = ko.observable('');
         self.path = ko.observable('M10 10');
         self.mapData = ko.observableArray(mapd);
         self.selectOptions = ko.observableArray(optionsd);
         self.selectedPerson = ko.observable();
         self.mapMode = ko.observable('search');
-        self.startPerson = ko.observable();
-        self.endPerson = ko.observable();
+        self.startPerson = ko.observable('');
+        self.endPerson = ko.observable('');
         self.toggleTravelDots = ko.observable(true);
         self.toggleTravelDots.subscribe(function (newValue) {
             if (newValue)
@@ -24,7 +22,8 @@ VM.index = (function (ko, $) {
 
         self.showTravelDots = ko.observable('visible');
         self.isSearching = ko.observable('hidden');
-
+        self.secondFloorPath = ko.observable('');
+        self.firstFloorPath = ko.observable(''); 
         var floor = 0;
 
 
@@ -68,7 +67,26 @@ VM.index = (function (ko, $) {
         var target = document.getElementById('loadingSpin');
         var spinner = new Spinner(opts).spin(target);
 
+        var validateSearch = function () {
+            if ((self.startPerson() == '' || self.endPerson() == '') || (self.startPerson().info.deskNo == self.endPerson().info.deskNo)) {
+                alert('Please enter a start AND destination Pl0X');
+                return;
+            }
+
+            if (self.startPerson().info.deskNo[0] == '1' && self.endPerson().info.deskNo[0] == '1')
+                floor = 11;
+            else if (self.startPerson().info.deskNo[0] == '1' && self.endPerson().info.deskNo[0] == '2')
+                floor = 12;
+            else if (self.startPerson().info.deskNo[0] == '2' && self.endPerson().info.deskNo[0] == '1')
+                floor = 21;
+            else if (self.startPerson().info.deskNo[0] == '2' && self.endPerson().info.deskNo[0] == '2')
+                floor = 22;
+
+            alert(floor);
+        };
+
         self.getPath = function () {
+            validateSearch();
             self.isSearching('visible');
             var start_ts;
             $.ajax({
@@ -81,7 +99,7 @@ VM.index = (function (ko, $) {
                 success: function (res) {
                     //alert(res);
                     self.isSearching('hidden');
-                    self.path(res);
+                    attachPath(res);
                 },
                 complete: function(jqXHR, textStatus) {
                     var end_ts = new Date().getTime();
@@ -102,41 +120,27 @@ VM.index = (function (ko, $) {
         }
 
 
-        var validateSearch = function () {
-            if ((self.start() == '' || self.destination() == '') || (self.start() == self.destination())) {
-                alert('Please enter a start AND destination Pl0X');
-                return;
+        var attachPath = function (path) {
+            if (floor == 11)
+                self.firstFloorPath(path);
+            if (floor == 22)
+                self.secondFloorPath(path);
+            if (floor == 12) {
+                var splitPath = path.split('Stair');
+
+                //alert(ko.toJSON(splitPath, null, 2));
+                self.firstFloorPath(splitPath[0]);
+                self.secondFloorPath(splitPath[1]);
             }
+            if (floor == 21) {
+                var splitPath = path.split('Stair');
+                //alert(ko.toJSON(splitPath, null, 2));
 
-            if (self.start()[0] == '1' && self.destination()[0] == '1')
-                floor = 11;
-            else if (self.start()[0] == '1' && self.destination()[0] == '2')
-                floor = 12;
-            else if (self.start()[0] == '2' && self.destination()[0] == '1')
-                floor = 21;
-            else if (self.start()[0] == '2' && self.destination()[0] == '2')
-                floor = 22;
-
-            //alert(floor);
-
+                self.firstFloorPath(splitPath[1]);
+                self.secondFloorPath(splitPath[0]);
+            }
         };
-
-        self.shortestPaths = function () {
-            validateSearch();
-            $.ajax({
-                type: "POST",
-                url: "../Home/shortestPaths",
-                data: { start: self.start(), end: self.destination(), floors: floor.toString() },
-                success: function (res) {
-                    //alert(res);
-                    self.path(res);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    alert(xhr + "\n" + textStatus + "\n" + errorThrown);
-                }
-            });
-        };
-
+       
         self.flipBool = function () {
             var bool = self.testVirtual();
             self.testVirtual(!bool);
@@ -152,8 +156,10 @@ VM.index = (function (ko, $) {
         var selectedData = [];
         mapd.nodes.forEach(function (item) {
             console.log(ko.toJSON(item, null, 2));
-            if (item.info != null)
-                selectedData.push(item);
+            if (item.info != null) {
+                if(item.info.fName.indexOf('Stair') == -1)
+                    selectedData.push(item);
+            }
         });
 
         var vm = new home(mapd.nodes, selectedData);

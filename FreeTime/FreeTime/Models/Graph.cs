@@ -112,7 +112,7 @@ namespace FreeTime.Models
             Vertex v1059 = new Vertex(Int32.MaxValue, "1059", Constants.SouthVestibuleX, Constants.SouthVestibuleY, Constants.SouthVestibuleWidth, Constants.SouthVestibuleHeight);
             Vertex v1060 = new Vertex(Int32.MaxValue, "1060", Constants.SouthStairsX, Constants.SouthStairsY, Constants.SouthStairsWidth, Constants.SouthStairsHeight);
             Vertex v1060S = new Vertex(Int32.MaxValue, "21060S", Constants.HROfficeX + Constants.HROfficeWidth , 730 - Constants.SouthStairsHeight - 23, 157, Constants.SouthStairsHeight + 25);
-            v1060S.info = new Person("South Stairs Second Floor", "", "21060S", "", "", "Stairs");
+            v1060S.info = new Person("South Stair", "", "21060S", "", "", "Stairs");
             Vertex v1060Sadj = Vertex.makeAdjacent(ref v1060S, "v1060Sadj", 2, "right", 61);
             this.nodes.Add(v1060Sadj);
             Vertex v1061 = new Vertex(Int32.MaxValue, "1061", Constants.FoodPrepX, Constants.FoodPrepY, Constants.FoodPrepWidth, Constants.FoodPrepHeight);
@@ -2310,8 +2310,8 @@ namespace FreeTime.Models
                 unvisited.Remove(curr);
                 foreach (Edge e in curr.neighbors)
                 {
-                    System.Diagnostics.Debug.WriteLine("looking at neighbors");
-                    System.Diagnostics.Debug.WriteLine(e.neighbor.name);
+                    //System.Diagnostics.Debug.WriteLine("looking at neighbors");
+                    //System.Diagnostics.Debug.WriteLine(e.neighbor.name);
                     Vertex neighbor = e.neighbor;
                     if (neighbor.visited)
                         continue;
@@ -2332,7 +2332,7 @@ namespace FreeTime.Models
             string retPath = temp.name;
             while (temp.previous != null)
             {
-                System.Diagnostics.Debug.WriteLine("Path backwards is " + temp.previous.name);
+                //System.Diagnostics.Debug.WriteLine("Path backwards is " + temp.previous.name);
                 temp = temp.previous;
                 retPath += " " + temp.name;
             }
@@ -2349,8 +2349,21 @@ namespace FreeTime.Models
 
         public string drawPath(Vertex target) {
             string path = "";
+            bool entryStairs = true;
             while (target != null)
             {
+                if (target.info != null)
+                {
+                    if (target.info.fName.Contains("Stair") && entryStairs)
+                    {
+                        path = "Stair " + "M" + target.midX.ToString() + " " + target.midY.ToString() + " " + path;
+                        target = target.previous;
+                        entryStairs = false;
+                        continue;
+                    }
+                }
+                
+
                 if (target.previous == null)
                 {
                     path = "M" + target.midX.ToString() + " " + target.midY.ToString() + " " + path;
@@ -2359,6 +2372,8 @@ namespace FreeTime.Models
                 {
                     path = "L" + target.midX.ToString() + " " + target.midY.ToString() + " " + path;
                 }
+
+                
                 target = target.previous;
             }
 

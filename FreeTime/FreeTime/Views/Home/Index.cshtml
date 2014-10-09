@@ -35,7 +35,7 @@
     <svg height="800px" width="2130px" >
         <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
         <path d="M1236 0 V455" stroke="black" stroke-width="2" fill="none"/>
-        <path data-bind="attr: { d: path }" stroke="red" stroke-width="2" fill="none"/>
+        <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
         <!-- ko foreach: mapData   -->
         <!-- ko if: $data.info != null -->
 
@@ -58,7 +58,8 @@
 <div id="mapSearchFirstFloor" style="border: 2px solid">
 
     <svg height="800px" width="2130px" >
-        
+        <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
         <!-- ko foreach: mapData   -->
         <!-- ko if: $data.info != null -->
         <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
