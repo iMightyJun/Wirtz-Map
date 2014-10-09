@@ -112,7 +112,7 @@ namespace FreeTime.Models
             Vertex v1059 = new Vertex(Int32.MaxValue, "1059", Constants.SouthVestibuleX, Constants.SouthVestibuleY, Constants.SouthVestibuleWidth, Constants.SouthVestibuleHeight);
             Vertex v1060 = new Vertex(Int32.MaxValue, "1060", Constants.SouthStairsX, Constants.SouthStairsY, Constants.SouthStairsWidth, Constants.SouthStairsHeight);
             Vertex v1060S = new Vertex(Int32.MaxValue, "21060S", Constants.HROfficeX + Constants.HROfficeWidth , 730 - Constants.SouthStairsHeight - 23, 157, Constants.SouthStairsHeight + 25);
-            v1060S.info = new Person("South Stairs Second Floor", "", "1060S", "", "", "Stairs");
+            v1060S.info = new Person("South Stairs Second Floor", "", "21060S", "", "", "Stairs");
             Vertex v1060Sadj = Vertex.makeAdjacent(ref v1060S, "v1060Sadj", 2, "right", 61);
             this.nodes.Add(v1060Sadj);
             Vertex v1061 = new Vertex(Int32.MaxValue, "1061", Constants.FoodPrepX, Constants.FoodPrepY, Constants.FoodPrepWidth, Constants.FoodPrepHeight);
@@ -408,7 +408,9 @@ namespace FreeTime.Models
             this.nodes.Add(v2022adj);
             Vertex v2022walk = Vertex.makeAdjacent(ref v2022adj, "v2022adj", 2, "right", 28);
             this.nodes.Add(v2022walk);
-
+            //Connect North Stairs
+            Vertex.connectVertex(ref v2022, ref v1015, 100);
+            Vertex.connectVertex(ref v1015, ref v1012, 10);
 
             #region Connect Trade 
             Vertex.connectVertex(ref v201903walk, ref v201904adj, 1);
