@@ -29,6 +29,7 @@ namespace FreeTime.Models
 
         public void makeNodes()
         {
+            #region Make First Floor
             //Integers are used not constant values (hallway length, etc)
             Vertex v1001 = new Vertex(Int32.MaxValue, "1001", Constants.LobbyX, Constants.LobbyY, Constants.LobbyWidth, Constants.LobbyHeight);
             Vertex v1002 = new Vertex(Int32.MaxValue, "1002", Constants.MailRoomX, Constants.MailRoomY, Constants.MailRoomWidth, Constants.MailRoomHeight);
@@ -110,12 +111,15 @@ namespace FreeTime.Models
             Vertex v1053 = new Vertex(Int32.MaxValue, "1053", Constants.FitnessWomenX, Constants.FitnessWomenY + Constants.FitnessWomenHeight, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
             Vertex v1055 = new Vertex(Int32.MaxValue, "1055", Constants.FitnessWomenX, Constants.FitnessWomenY, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
             Vertex v1059 = new Vertex(Int32.MaxValue, "1059", Constants.SouthVestibuleX, Constants.SouthVestibuleY, Constants.SouthVestibuleWidth, Constants.SouthVestibuleHeight);
+            Vertex v1059adj = Vertex.makeAdjacent(ref v1059, "v1059adj", 1, "right", 45);
+            this.nodes.Add(v1059adj);
+            
             Vertex v1060 = new Vertex(Int32.MaxValue, "1060", Constants.SouthStairsX, Constants.SouthStairsY, Constants.SouthStairsWidth, Constants.SouthStairsHeight);
             Vertex v1060S = new Vertex(Int32.MaxValue, "21060S", Constants.HROfficeX + Constants.HROfficeWidth , 730 - Constants.SouthStairsHeight - 23, 157, Constants.SouthStairsHeight + 25);
             v1060S.info = new Person("South Stair", "", "21060S", "", "", "Stairs");
             Vertex v1060Sadj = Vertex.makeAdjacent(ref v1060S, "v1060Sadj", 2, "right", 61);
             this.nodes.Add(v1060Sadj);
-            Vertex.connectVertex(ref v1060, ref v1060S, 100);
+
             Vertex v1061 = new Vertex(Int32.MaxValue, "1061", Constants.FoodPrepX, Constants.FoodPrepY, Constants.FoodPrepWidth, Constants.FoodPrepHeight);
             Vertex v1063 = new Vertex(Int32.MaxValue, "1063", 0, 0);
             Vertex v1064 = new Vertex(Int32.MaxValue, "1064", 0, 0);
@@ -283,6 +287,11 @@ namespace FreeTime.Models
             Vertex v1132 = new Vertex(Int32.MaxValue, "1132", 0, 0);
             Vertex v1133 = new Vertex(Int32.MaxValue, "1133", 0, 0);
             Vertex v113301 = new Vertex(Int32.MaxValue, "1133.01", 0, 0);
+
+            #endregion
+
+            #region Make Second Floor 
+
             Vertex v2007 = new Vertex(Int32.MaxValue, "2007", Constants.Room2007X, Constants.Room2007Y, Constants.Room2007Width, Constants.Room2007Height);
             Vertex v2007adj = Vertex.makeAdjacent(ref v2007, "v2007adj", 2, "down", 100);
             this.nodes.Add(v2007adj);
@@ -1635,6 +1644,9 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref vSecondFloorConnectNS, ref v2092walk, 2);
             #endregion
 
+            #endregion
+
+            #region Add First Floor
 
             this.nodes.Add(v1001);
             this.nodes.Add(v1002);
@@ -1877,6 +1889,11 @@ namespace FreeTime.Models
             this.nodes.Add(v1132);
             this.nodes.Add(v1133);
             this.nodes.Add(v113301);
+            
+            #endregion
+
+            #region Add Second Floor
+
             this.nodes.Add(v2007);
             this.nodes.Add(v200701);
             this.nodes.Add(v200702);
@@ -2159,6 +2176,8 @@ namespace FreeTime.Models
             this.nodes.Add(v2107);
             this.nodes.Add(v2108);
             this.nodes.Add(v2109);
+            #endregion
+
         }
 
 

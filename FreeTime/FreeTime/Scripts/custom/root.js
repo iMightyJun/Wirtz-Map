@@ -23,7 +23,8 @@ VM.index = (function (ko, $) {
         self.showTravelDots = ko.observable('visible');
         self.isSearching = ko.observable('hidden');
         self.secondFloorPath = ko.observable('');
-        self.firstFloorPath = ko.observable(''); 
+        self.firstFloorPath = ko.observable('');
+        self.firstFloorFirst = ko.observable(true);
         var floor = 0;
 
 
@@ -32,8 +33,8 @@ VM.index = (function (ko, $) {
 
         }
 
-        self.testFunction = function () {
-            alert('adfaf');
+        self.flipFloors = function () {
+            self.firstFloorFirst(!self.firstFloorFirst());
         };
 
         self.getPersonInfo = function () {
