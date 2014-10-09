@@ -111,16 +111,31 @@ namespace FreeTime.Models
             Vertex v1053 = new Vertex(Int32.MaxValue, "1053", Constants.FitnessWomenX, Constants.FitnessWomenY + Constants.FitnessWomenHeight, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
             Vertex v1055 = new Vertex(Int32.MaxValue, "1055", Constants.FitnessWomenX, Constants.FitnessWomenY, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
             Vertex v1059 = new Vertex(Int32.MaxValue, "1059", Constants.SouthVestibuleX, Constants.SouthVestibuleY, Constants.SouthVestibuleWidth, Constants.SouthVestibuleHeight);
-            Vertex v1059adj = Vertex.makeAdjacent(ref v1059, "v1059adj", 1, "right", 45);
+            Vertex v1059adj = Vertex.makeAdjacent(ref v1059, "v1059adj", 1, "right", 65);
             this.nodes.Add(v1059adj);
             
             Vertex v1060 = new Vertex(Int32.MaxValue, "1060", Constants.SouthStairsX, Constants.SouthStairsY, Constants.SouthStairsWidth, Constants.SouthStairsHeight);
-            Vertex v1060S = new Vertex(Int32.MaxValue, "21060S", Constants.HROfficeX + Constants.HROfficeWidth , 730 - Constants.SouthStairsHeight - 23, 157, Constants.SouthStairsHeight + 25);
-            v1060S.info = new Person("South Stair", "", "21060S", "", "", "Stairs");
+            
+
+            Vertex v1060S = new Vertex(Int32.MaxValue, "2v1060S", Constants.HROfficeX + Constants.HROfficeWidth , 730 - Constants.SouthStairsHeight - 23, 157, Constants.SouthStairsHeight + 25);
+            v1060S.info = new Person("South Stair", "", "2v1060S", "", "", "Stairs");
+            // Connect Staircases
             Vertex v1060Sadj = Vertex.makeAdjacent(ref v1060S, "v1060Sadj", 2, "right", 61);
             this.nodes.Add(v1060Sadj);
+            Vertex v1060adj = Vertex.makeConnect(ref v1060, "v1060adj", 1, v1059adj.midX, v1060.midY);
+            this.nodes.Add(v1060adj);
 
             Vertex v1061 = new Vertex(Int32.MaxValue, "1061", Constants.FoodPrepX, Constants.FoodPrepY, Constants.FoodPrepWidth, Constants.FoodPrepHeight);
+            Vertex v1061adj = Vertex.makeConnect(ref v1061, "v1061adj", 1, v1061.midX, v1059adj.midY);
+            this.nodes.Add(v1061adj);
+
+            //Connect south side enterance
+            #region Connect Southside Enterance
+            Vertex.connectVertex(ref v1060, ref v1060S, 100);
+            Vertex.connectVertex(ref v1060adj, ref v1059adj);
+            Vertex.connectVertex(ref v1061adj, ref v1059adj);
+            #endregion
+
             Vertex v1063 = new Vertex(Int32.MaxValue, "1063", 0, 0);
             Vertex v1064 = new Vertex(Int32.MaxValue, "1064", 0, 0);
             Vertex v1065 = new Vertex(Int32.MaxValue, "1065", Constants.CafeteriaX, Constants.CafeteriaY, Constants.CafeteriaWidth, Constants.CafeteriaHeight);
@@ -420,7 +435,7 @@ namespace FreeTime.Models
             this.nodes.Add(v2022walk);
             //Connect North Stairs
             Vertex.connectVertex(ref v2022, ref v1015, 100);
-            Vertex.connectVertex(ref v1015, ref v1012, 10);
+            
 
             #region Connect Trade 
             Vertex.connectVertex(ref v201903walk, ref v201904adj, 1);

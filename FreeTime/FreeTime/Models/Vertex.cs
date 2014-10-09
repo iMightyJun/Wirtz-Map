@@ -111,13 +111,14 @@ namespace FreeTime.Models
                 n = "1travel" + n;
             else
                 n = "2travel" + n;
-            newV = new Vertex(v.distance, n, x, y, v.mWidth, v.mHeight);
+            newV = new Vertex(v.distance, n, 1 , 1 , 1, 1, x, y);
 
             connectVertex(ref newV, ref v, weight);
+
             return newV;
         }
 
-        public static void connectVertex(ref Vertex a, ref Vertex b, int weight) {
+        public static void connectVertex(ref Vertex a, ref Vertex b, int weight = 1) {
             Edge to = new Edge(ref a, weight);
             b.addNeighbors(ref to);
             Edge from = new Edge(ref b, weight);
