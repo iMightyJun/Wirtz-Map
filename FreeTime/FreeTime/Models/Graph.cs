@@ -107,9 +107,20 @@ namespace FreeTime.Models
             Vertex v104806 = new Vertex(Int32.MaxValue, "1048.06", 0, 0);
             Vertex v1049 = new Vertex(Int32.MaxValue, "1049", Constants.FitnessX, Constants.FitnessY, Constants.FitnessWidth, Constants.FitnessHeight);
             Vertex v1050 = new Vertex(Int32.MaxValue, "1050", Constants.FitnessWomenX, Constants.FitnessWomenY + Constants.FitnessWomenHeight*3, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
+            Vertex v1050adj = Vertex.makeAdjacent(ref v1050, "v1050adj", 1, "left", 80);
+            this.nodes.Add(v1050adj);
+            
             Vertex v1052 = new Vertex(Int32.MaxValue, "1052", Constants.FitnessWomenX, Constants.FitnessWomenY + Constants.FitnessWomenHeight*2, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
+            Vertex v1052adj = Vertex.makeConnect(ref v1052, "v1052adj", 1, v1050adj.midX, v1052.midY);
+            this.nodes.Add(v1052adj);
+            
             Vertex v1053 = new Vertex(Int32.MaxValue, "1053", Constants.FitnessWomenX, Constants.FitnessWomenY + Constants.FitnessWomenHeight, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
+            Vertex v1053adj = Vertex.makeConnect(ref v1053, "v1053adj", 1, v1050adj.midX, v1053.midY);
+            this.nodes.Add(v1053adj);
+            
             Vertex v1055 = new Vertex(Int32.MaxValue, "1055", Constants.FitnessWomenX, Constants.FitnessWomenY, Constants.FitnessWomenWidth, Constants.FitnessWomenHeight);
+            Vertex v1055adj = Vertex.makeConnect(ref v1055, "v1055adj", 1, v1052adj.midX, v1055.midY);
+            this.nodes.Add(v1055adj);
             Vertex v1059 = new Vertex(Int32.MaxValue, "1059", Constants.SouthVestibuleX, Constants.SouthVestibuleY, Constants.SouthVestibuleWidth, Constants.SouthVestibuleHeight);
             Vertex v1059adj = Vertex.makeAdjacent(ref v1059, "v1059adj", 1, "right", 65);
             this.nodes.Add(v1059adj);
@@ -128,17 +139,28 @@ namespace FreeTime.Models
             Vertex v1061 = new Vertex(Int32.MaxValue, "1061", Constants.FoodPrepX, Constants.FoodPrepY, Constants.FoodPrepWidth, Constants.FoodPrepHeight);
             Vertex v1061adj = Vertex.makeConnect(ref v1061, "v1061adj", 1, v1061.midX, v1059adj.midY);
             this.nodes.Add(v1061adj);
+            Vertex v1061walk = Vertex.makeConnect(ref v1061adj, "v1061walk", 1, v1050adj.midX, v1061adj.midY);
+            this.nodes.Add(v1061walk);
+            
+
+            Vertex v1063 = new Vertex(Int32.MaxValue, "1063", 0, 0);
+            Vertex v1064 = new Vertex(Int32.MaxValue, "1064", 0, 0);
+            Vertex v1065 = new Vertex(Int32.MaxValue, "1065", Constants.CafeteriaX, Constants.CafeteriaY, Constants.CafeteriaWidth, Constants.CafeteriaHeight);
+            Vertex v1065adj = Vertex.makeConnect(ref v1065, "v1065adj", 1, v1053adj.midX, v1065.midY);
+            this.nodes.Add(v1065adj);
+
 
             //Connect south side enterance
             #region Connect Southside Enterance
             Vertex.connectVertex(ref v1060, ref v1060S, 100);
             Vertex.connectVertex(ref v1060adj, ref v1059adj);
             Vertex.connectVertex(ref v1061adj, ref v1059adj);
+            Vertex.connectVertex(ref v1061walk, ref v1050adj);
+            Vertex.connectVertex(ref v1052adj, ref v1050adj);
+            Vertex.connectVertex(ref v1053adj, ref v1052adj);
+            Vertex.connectVertex(ref v1065adj, ref v1053adj);
+            Vertex.connectVertex(ref v1055adj, ref v1065adj);
             #endregion
-
-            Vertex v1063 = new Vertex(Int32.MaxValue, "1063", 0, 0);
-            Vertex v1064 = new Vertex(Int32.MaxValue, "1064", 0, 0);
-            Vertex v1065 = new Vertex(Int32.MaxValue, "1065", Constants.CafeteriaX, Constants.CafeteriaY, Constants.CafeteriaWidth, Constants.CafeteriaHeight);
 
             Vertex v1066 = new Vertex(Int32.MaxValue, "1066", Constants.Sales1066_76X + Constants.FirstFloorCubicleWidth * 0, Constants.Sales1066_76Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v1067 = new Vertex(Int32.MaxValue, "1067", Constants.Sales1066_76X + Constants.FirstFloorCubicleWidth * 1, Constants.Sales1066_76Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
@@ -174,6 +196,9 @@ namespace FreeTime.Models
             Vertex v1079 = new Vertex(Int32.MaxValue, "1079", Constants.Sales1079_77X, Constants.Sales1079_77Y + Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight, Constants.FirstFloorCubicleWidth);
             Vertex v1080 = new Vertex(Int32.MaxValue, "1080", 649, 1, 96 ,62);
             Vertex v108101 = new Vertex(Int32.MaxValue, "1081.01", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 0, Constants.Sales108101_56Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
+            Vertex v108101adj = Vertex.makeAdjacent(ref v108101, "v108101adj", 1, "down", 48);
+            this.nodes.Add(v108101adj);
+            
             Vertex v108102 = new Vertex(Int32.MaxValue, "1081.02", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 1, Constants.Sales108101_56Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108103 = new Vertex(Int32.MaxValue, "1081.03", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 2, Constants.Sales108101_56Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108104 = new Vertex(Int32.MaxValue, "1081.04", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 3, Constants.Sales108101_56Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
@@ -186,8 +211,37 @@ namespace FreeTime.Models
             Vertex v108111 = new Vertex(Int32.MaxValue, "1081.11", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 10, Constants.Sales108101_56Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108112 = new Vertex(Int32.MaxValue, "1081.12", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 11, Constants.Sales108101_56Y, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
 
+            Vertex v108102adj = Vertex.makeConnect(ref v108102, "v108102adj", 1, v108102.midX, v108101adj.midY);
+            this.nodes.Add(v108102adj);
+            Vertex v108103adj = Vertex.makeConnect(ref v108103, "v108103adj", 1, v108103.midX, v108101adj.midY);
+            this.nodes.Add(v108103adj);
+            Vertex v108104adj = Vertex.makeConnect(ref v108104, "v108104adj", 1, v108104.midX, v108101adj.midY);
+            this.nodes.Add(v108104adj);
+            Vertex v108105adj = Vertex.makeConnect(ref v108105, "v108105adj", 1, v108105.midX, v108101adj.midY);
+            this.nodes.Add(v108105adj);
+            Vertex v108106adj = Vertex.makeConnect(ref v108106, "v108106adj", 1, v108106.midX, v108101adj.midY);
+            this.nodes.Add(v108106adj);
+            Vertex v108107adj = Vertex.makeConnect(ref v108107, "v108107adj", 1, v108107.midX, v108101adj.midY);
+            this.nodes.Add(v108107adj);
+            Vertex v108107walk = Vertex.makeConnect(ref v108107adj, "v108107walk", 1, v108107.midX + 25, v108101adj.midY);
+            this.nodes.Add(v108107walk);
+            
+            Vertex v108108adj = Vertex.makeConnect(ref v108108, "v108108adj", 1, v108108.midX, v108101adj.midY);
+            this.nodes.Add(v108108adj);
+            Vertex v108109adj = Vertex.makeConnect(ref v108109, "v108109adj", 1, v108109.midX, v108101adj.midY);
+            this.nodes.Add(v108109adj);
+            Vertex v108110adj = Vertex.makeConnect(ref v10811, "v108110adj", 1, v10811.midX, v108101adj.midY);
+            this.nodes.Add(v108110adj);
+            Vertex v108111adj = Vertex.makeConnect(ref v108111, "v108111adj", 1, v108111.midX, v108101adj.midY);
+            this.nodes.Add(v108111adj);
+            Vertex v108112adj = Vertex.makeConnect(ref v108112, "v108112adj", 1, v108112.midX, v108101adj.midY);
+            this.nodes.Add(v108112adj);
+
+
             Vertex v108113 = new Vertex(Int32.MaxValue, "1081.13", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 0, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108114 = new Vertex(Int32.MaxValue, "1081.14", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 1, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
+            Vertex v108114walk = Vertex.makeConnect(ref v108102adj, "v108114walk", 1, v108102adj.midX + 45, v108101adj.midY);
+            this.nodes.Add(v108114walk);
             Vertex v108115 = new Vertex(Int32.MaxValue, "1081.15", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk + Constants.FirstFloorCubicleWidth * 2, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108116 = new Vertex(Int32.MaxValue, "1081.16", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk + Constants.FirstFloorCubicleWidth * 3, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108117 = new Vertex(Int32.MaxValue, "1081.17", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk + Constants.FirstFloorCubicleWidth * 4, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
@@ -197,8 +251,31 @@ namespace FreeTime.Models
             Vertex v108121 = new Vertex(Int32.MaxValue, "1081.21", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 8, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108122 = new Vertex(Int32.MaxValue, "1081.22", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 9, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108123 = new Vertex(Int32.MaxValue, "1081.23", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 10, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
+            Vertex v108115adj = Vertex.makeConnect(ref v108115, "v108115adj", 1, v108115.midX, v108101adj.midY);
+            this.nodes.Add(v108115adj);
+            Vertex v108116adj = Vertex.makeConnect(ref v108116, "v108116adj", 1, v108116.midX, v108101adj.midY);
+            this.nodes.Add(v108116adj);
+            Vertex v108117adj = Vertex.makeConnect(ref v108117, "v108117adj", 1, v108117.midX, v108101adj.midY);
+            this.nodes.Add(v108117adj);
+            Vertex v108118adj = Vertex.makeConnect(ref v108118, "v108118adj", 1, v108118.midX, v108101adj.midY);
+            this.nodes.Add(v108118adj);
+
+            Vertex v108119adj = Vertex.makeConnect(ref v108119, "v108119adj", 1, v108119.midX, v108101adj.midY);
+            this.nodes.Add(v108119adj);
+            Vertex v108120adj = Vertex.makeConnect(ref v10812, "v108120adj", 1, v10812.midX, v108101adj.midY);
+            this.nodes.Add(v108120adj);
+            Vertex v108121adj = Vertex.makeConnect(ref v108121, "v108121adj", 1, v108121.midX, v108101adj.midY);
+            this.nodes.Add(v108121adj);
+            Vertex v108122adj = Vertex.makeConnect(ref v108122, "v108122adj", 1, v108122.midX, v108101adj.midY);
+            this.nodes.Add(v108122adj);
+            Vertex v108123adj = Vertex.makeConnect(ref v108123, "v108123adj", 1, v108123.midX, v108101adj.midY);
+            this.nodes.Add(v108123adj);
+
 
             Vertex v108124 = new Vertex(Int32.MaxValue, "1081.24", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 0, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
+            Vertex v108124adj = Vertex.makeAdjacent(ref v108124, "v108124adj", 1, "down", 48);
+            this.nodes.Add(v108124adj);
+            
             Vertex v108125 = new Vertex(Int32.MaxValue, "1081.25", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 1, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108126 = new Vertex(Int32.MaxValue, "1081.26", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk + Constants.FirstFloorCubicleWidth * 2, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108127 = new Vertex(Int32.MaxValue, "1081.27", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk + Constants.FirstFloorCubicleWidth * 3, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
@@ -209,6 +286,26 @@ namespace FreeTime.Models
             Vertex v108132 = new Vertex(Int32.MaxValue, "1081.32", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 8, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108133 = new Vertex(Int32.MaxValue, "1081.33", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 9, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108134 = new Vertex(Int32.MaxValue, "1081.34", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 10, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 2 + Constants.FirstFloorSalesWalk, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
+            Vertex v108125adj = Vertex.makeConnect(ref v108125, "v108125", 1, v108125.midX, v108124adj.midY);
+            this.nodes.Add(v108125adj);
+            Vertex v108126adj = Vertex.makeConnect(ref v108126, "v108126", 1, v108126.midX, v108124adj.midY);
+            this.nodes.Add(v108126adj);
+            Vertex v108127adj = Vertex.makeConnect(ref v108127, "v108127", 1, v108127.midX, v108124adj.midY);
+            this.nodes.Add(v108127adj);
+            Vertex v108128adj = Vertex.makeConnect(ref v108128, "v108128", 1, v108128.midX, v108124adj.midY);
+            this.nodes.Add(v108128adj);
+            Vertex v108129adj = Vertex.makeConnect(ref v108129, "v108129", 1, v108129.midX, v108124adj.midY);
+            this.nodes.Add(v108129adj);
+            Vertex v108130adj = Vertex.makeConnect(ref v10813, "v108130", 1, v10813.midX, v108124adj.midY);
+            this.nodes.Add(v108130adj);
+            Vertex v108131adj = Vertex.makeConnect(ref v108131, "v108131", 1, v108131.midX, v108124adj.midY);
+            this.nodes.Add(v108131adj);
+            Vertex v108132adj = Vertex.makeConnect(ref v108132, "v108132", 1, v108132.midX, v108124adj.midY);
+            this.nodes.Add(v108132adj);
+            Vertex v108133adj = Vertex.makeConnect(ref v108133, "v108133", 1, v108133.midX, v108124adj.midY);
+            this.nodes.Add(v108133adj);
+            Vertex v108134adj = Vertex.makeConnect(ref v108134, "v108134", 1, v108134.midX, v108124adj.midY);
+            this.nodes.Add(v108134adj);
 
 
             Vertex v108135 = new Vertex(Int32.MaxValue, "1081.35", Constants.Sales108101_56X + Constants.FirstFloorCubicleWidth * 0, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 3 + Constants.FirstFloorSalesWalk * 2, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
@@ -234,7 +331,46 @@ namespace FreeTime.Models
             Vertex v108154 = new Vertex(Int32.MaxValue, "1081.54", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 8, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 4 + Constants.FirstFloorSalesWalk * 2, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108155 = new Vertex(Int32.MaxValue, "1081.55", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 9, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 4 + Constants.FirstFloorSalesWalk * 2, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
             Vertex v108156 = new Vertex(Int32.MaxValue, "1081.56", Constants.Sales108101_56X + Constants.FirstFloorSalesWalk * 2 + Constants.FirstFloorCubicleWidth * 10, Constants.Sales108101_56Y + Constants.FirstFloorCubicleHeight * 4 + Constants.FirstFloorSalesWalk * 2, Constants.FirstFloorCubicleWidth, Constants.FirstFloorCubicleHeight);
-            
+
+            #region Connect First Floor Cubicles
+
+            Vertex.connectVertex(ref v108101adj, ref v108113);
+            Vertex.connectVertex(ref v108102adj, ref v108114);
+            Vertex.connectVertex(ref v108101adj, ref v108102adj);
+            Vertex.connectVertex(ref v108114walk, ref v108103adj);
+            Vertex.connectVertex(ref v108115adj, ref v108103adj);
+            Vertex.connectVertex(ref v108115adj, ref v108104adj);
+            Vertex.connectVertex(ref v108116adj, ref v108104adj);
+            Vertex.connectVertex(ref v108116adj, ref v108105adj);
+            Vertex.connectVertex(ref v108117adj, ref v108105adj);
+            Vertex.connectVertex(ref v108117adj, ref v108106adj);
+            Vertex.connectVertex(ref v108118adj, ref v108106adj);
+            Vertex.connectVertex(ref v108118adj, ref v108107adj);
+            Vertex.connectVertex(ref v108107walk, ref v108108adj);
+            Vertex.connectVertex(ref v108119adj, ref v108108adj);
+            Vertex.connectVertex(ref v108119adj, ref v108109adj);
+            Vertex.connectVertex(ref v108120adj, ref v108109adj);
+            Vertex.connectVertex(ref v108120adj, ref v108110adj);
+            Vertex.connectVertex(ref v108121adj, ref v108110adj);
+            Vertex.connectVertex(ref v108121adj, ref v108111adj);
+            Vertex.connectVertex(ref v108122adj, ref v108111adj);
+            Vertex.connectVertex(ref v108122adj, ref v108112adj);
+            Vertex.connectVertex(ref v108123adj, ref v108112adj);
+            Vertex.connectVertex(ref v108124adj, ref v108135, 1);
+            Vertex.connectVertex(ref v108125adj, ref v108136, 1);
+            Vertex.connectVertex(ref v108126adj, ref v108137, 1);
+            Vertex.connectVertex(ref v108127adj, ref v108138, 1);
+            Vertex.connectVertex(ref v108128adj, ref v108139, 1);
+            Vertex.connectVertex(ref v108129adj, ref v10814, 1);
+            Vertex.connectVertex(ref v108130adj, ref v108141, 1);
+            Vertex.connectVertex(ref v108131adj, ref v108142, 1);
+            Vertex.connectVertex(ref v108132adj, ref v108143, 1);
+            Vertex.connectVertex(ref v108133adj, ref v108144, 1);
+            Vertex.connectVertex(ref v108134adj, ref v108145, 1);
+            #endregion
+
+
+
             Vertex v1082 = new Vertex(Int32.MaxValue, "1082", 0, 0);
             Vertex v1083 = new Vertex(Int32.MaxValue, "1083", 0, 0);
             Vertex v1086 = new Vertex(Int32.MaxValue, "1086", 0, 0);

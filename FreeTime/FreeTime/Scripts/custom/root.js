@@ -83,7 +83,7 @@ VM.index = (function (ko, $) {
             else if (self.startPerson().info.deskNo[0] == '2' && self.endPerson().info.deskNo[0] == '2')
                 floor = 22;
 
-            alert(floor);
+            //alert(floor);
         };
 
         self.getPath = function () {
