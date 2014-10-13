@@ -133,7 +133,7 @@ namespace FreeTime.Models
         public const int Room2021Height = Room2020Height;
 
         public const int Room2007X = 926;
-        public const int Room2007Y = 455 - Room2007Height;
+        public const int Room2007Y = 445 - Room2007Height;
         public const int Room2007Width = 140;
         public const int Room2007Height = 170;
 
@@ -242,6 +242,11 @@ namespace FreeTime.Models
         public const int LobbyStairsHeight = MailRoomHeight * 2;
         public const int LobbyStairsMidX = LobbyStairsX + LobbyStairsWidth / 2;
         public const int LobbyStairsMidY = LobbyStairsY + LobbyStairsHeight / 2 + 25;
+
+        public const int ElevatorX = LobbyStairsX + LobbyStairsWidth;
+        public const int ElevatorY = MailRoomY + MailRoomHeight;
+        public const int ElevatorHeight = LobbyStairsHeight - MailRoomHeight;
+        public const int ElevatorWidth = 88;
 
         public const int Room1006X = LobbyX + LobbyWidth + 60;
         public const int Room1006Y = MailRoomY + MailRoomHeight;
