@@ -118,6 +118,7 @@ namespace FreeTime.Models
             return newV;
         }
 
+
         public static void connectVertex(ref Vertex a, ref Vertex b, int weight = 1) {
             Edge to = new Edge(ref a, weight);
             b.addNeighbors(ref to);
