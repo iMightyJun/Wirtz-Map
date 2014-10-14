@@ -86,19 +86,32 @@ VM.index = (function (ko, $) {
             //alert(floor);
         };
 
+        var fixSearch = function () {
+
+            var startNo = self.selectedPerson().info.deskNo;
+            var endNo = self.endPerson().info.deskNo;
+
+            // IF doesn't need collapse
+            return { start: startNo, end: endNo };
+        };
+
         self.getPath = function () {
             validateSearch();
             self.isSearching('visible');
             var start_ts;
+            var fixedNo = fixSeach();
+            var startNo = fixedNo.start;
+            var endNo = fixedNo.end;
+
             $.ajax({
                 type: "GET",
                 url: "../Home/getPath",
-                data: { start: self.startPerson().info.deskNo, end: self.endPerson().info.deskNo, floors: "" },
+                data: { start: startNo, end: endNo, floors: "" },
                 beforeSend: function() {
                     start_ts = new Date().getTime();
                 },
                 success: function (res) {
-                    //alert(res);
+                    alert(res);
                     self.isSearching('hidden');
                     attachPath(res);
                 },
@@ -122,20 +135,27 @@ VM.index = (function (ko, $) {
 
 
         var attachPath = function (path) {
-            if (floor == 11)
+            if (floor == 11) {
                 self.firstFloorPath(path);
-            if (floor == 22)
+                self.firstFloorFirst(true);
+            }
+            if (floor == 22) {
                 self.secondFloorPath(path);
+                self.firstFloorFirst(false);
+            }
             if (floor == 12) {
                 var splitPath = path.split('Stair');
 
                 //alert(ko.toJSON(splitPath, null, 2));
+                self.firstFloorFirst(true);
+
                 self.firstFloorPath(splitPath[0]);
                 self.secondFloorPath(splitPath[1]);
             }
             if (floor == 21) {
                 var splitPath = path.split('Stair');
                 //alert(ko.toJSON(splitPath, null, 2));
+                self.firstFloorFirst(false);
 
                 self.firstFloorPath(splitPath[1]);
                 self.secondFloorPath(splitPath[0]);
