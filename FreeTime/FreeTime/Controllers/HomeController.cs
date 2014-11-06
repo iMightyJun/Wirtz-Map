@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Json;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace FreeTime.Controllers
 {
@@ -58,7 +59,8 @@ namespace FreeTime.Controllers
         [HttpGet]
         public void getExcel(bool search)
         {
-            string url = "C:\\Users\\JCheng\\Documents\\People Lookup Mapz\\WBI Center - Seating Assignments - Updated AUG 2014.xlsx";
+            //C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\Scripts\custom\WBI Center - Seating Assignments - Updated AUG 2014.xlsx
+            string url = "C:\\Users\\JCheng\\Documents\\GitHub\\Wirtz-Map\\FreeTime\\FreeTime\\Scripts\\custom\\WBI Center - Seating Assignments - Updated AUG 2014.xlsx";
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(@url);
             Excel._Worksheet xlWorksheet = xlWorkBook.Sheets[1];
@@ -95,6 +97,8 @@ namespace FreeTime.Controllers
             }
 
             mapData = mapData.OrderBy(x => x.deskNo).ToList();
+
+
             mainGraph.makeNodes();
             mainGraph.addData(mapData);
             if(!search)

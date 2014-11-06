@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "index";
+}
+<div id="mainOverlay" data-bind="style: {visibility: isSearching }">
+    <div id="loadingSpin"></div>
+
+</div>
+
+<div id ="mapControls">
+    Start:<select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: startPerson, optionsCaption: 'Choose...' "></select>
+
+    <br />
+    Destination:<select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: endPerson, optionsCaption: 'Choose...' "></select>
+
+    <button data-bind="click: getPath">Shortest Paths</button>
+    <br />
+    <button data-bind="click: getPersonInfo">Get Person Info</button>
+    <br />
+
+    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
+
+    <br />
+    <button data-bind="click: changeView">Change View</button>
+    <br />
+    <button data-bind="click: showTravel">Toggle Travel Dots</button>
+    <br />
+    <button data-bind="click: flipFloors">Flip Floors</button>
+
+
+</div>
+
+<div id="mainContainer">
+
+<!-- ko if: mapMode() == 'search' -->
+
+    <!-- ko if: firstFloorFirst() -->
+        <div class="mapSearchFirstFloor" style="border: 2px solid">
+
+            <svg height="800px" width="2130px" >
+                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
+                <!-- ko foreach: mapData   -->
+                <!-- ko if: $data.info != null -->
+                <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
+                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
+                    <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                <!-- /ko -->
+                <!-- /ko -->
+ 
+            </svg>
+
+        </div>
+
+        <div class="mapSearchSecondFloor" style="border: 2px solid">
+
+            <svg height="800px" width="2130px" >
+                <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
+                <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
+                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+                <!-- ko foreach: mapData   -->
+                <!-- ko if: $data.info != null -->
+
+                <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
+                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
+                    <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                <!-- /ko -->
+                <!-- /ko -->
+ 
+            </svg>
+
+
+        </div>
+
+    <!-- /ko -->
+
+    <!--ko ifnot: firstFloorFirst() -->
+        <div class="mapSearchSecondFloor" style="border: 2px solid">
+
+            <svg height="800px" width="2130px" >
+                <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
+                <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
+                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+                <!-- ko foreach: mapData   -->
+                <!-- ko if: $data.info != null -->
+
+                <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
+                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
+                    <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                <!-- /ko -->
+                <!-- /ko -->
+ 
+            </svg>
+
+
+        </div>
+
+
+        <div class="mapSearchFirstFloor" style="border: 2px solid">
+
+            <svg height="800px" width="2130px" >
+                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
+                <!-- ko foreach: mapData   -->
+                <!-- ko if: $data.info != null -->
+                <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
+                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
+                    <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                <!-- /ko -->
+                <!-- /ko -->
+ 
+            </svg>
+
+        </div>
+
+    <!-- /ko -->
+<!-- /ko -->
+<!-- ko if: mapMode() == 'browse' -->
+        <div id="mapBrowse">
+
+     <svg height="800px" width="2130px" >
+        
+        <!-- ko foreach: mapData   -->
+        <!-- ko if: $data.info != null -->
+        <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
+            <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
+            <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+ 
+    </svg>
+    <svg height="800px" width="2130px" >
+        <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
+        <path d="M1236 0 V455" stroke="black" stroke-width="2" fill="none"/>
+        <path data-bind="attr: { d: path }" stroke="red" stroke-width="2" fill="none"/>
+        <!-- ko foreach: mapData   -->
+        <!-- ko if: $data.info != null -->
+        <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
+            <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
+            <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+ 
+    </svg>
+    </div>
+<!-- /ko -->
+
+    </div>
+
+
+
+
