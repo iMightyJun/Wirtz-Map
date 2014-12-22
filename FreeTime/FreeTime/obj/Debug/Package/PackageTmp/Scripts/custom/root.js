@@ -20,7 +20,7 @@ VM.index = (function (ko, $) {
                 self.showTravelDots('hidden');
         });
 
-        self.showTravelDots = ko.observable('visible');
+        self.showTravelDots = ko.observable('hidden');
         self.isSearching = ko.observable('hidden');
         self.secondFloorPath = ko.observable('');
         self.firstFloorPath = ko.observable('');
@@ -123,7 +123,7 @@ VM.index = (function (ko, $) {
                     start_ts = new Date().getTime();
                 },
                 success: function (res) {
-                    alert(res);
+                    //alert(res);
                     self.isSearching('hidden');
                     attachPath(res);
                 },
@@ -147,6 +147,8 @@ VM.index = (function (ko, $) {
 
 
         var attachPath = function (path) {
+            self.firstFloorPath('');
+            self.secondFloorPath('');
             if (floor == 11) {
                 self.firstFloorPath(path);
                 self.firstFloorFirst(true);

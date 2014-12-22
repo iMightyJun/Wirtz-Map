@@ -24,19 +24,9 @@ namespace FreeTime.Controllers
         Graph mainGraph = new Graph();
         public ActionResult Index()
         {
-            //System.Diagnostics.Debug.WriteLine(pathToData);
-            //if (!System.IO.File.Exists(pathToData))
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Getting excel");
-            //    getExcel();
-            //}
-            //else
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Converting json");
-            //    convertFromJson();
-            //}
+            
 
-            getExcel(false);
+            getMapData(false);
             System.Diagnostics.Debug.WriteLine("finished");
             return View();
         }
@@ -45,75 +35,13 @@ namespace FreeTime.Controllers
         {
             return View();
         }
-        /*
-        public string testAjax()
-        {
-            return "Hey What is Up Dawg";
-        }
+        
 
-        public int testParam(string data, int data2)
-        {
-            return data2;
-        }
-
-         */
+         
         [HttpGet]
-        public void getExcel(bool search)
+        public void getMapData(bool search)
         {
-            //C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\Scripts\custom\WBI Center - Seating Assignments - Updated AUG 2014.xlsx
-            //string url = "C:\\Users\\JCheng\\Documents\\GitHub\\Wirtz-Map\\FreeTime\\FreeTime\\Scripts\\custom\\WBI Center - Seating Assignments - Updated AUG 2014.xlsx";
-            //Excel.Application xlApp = new Excel.Application();
-            //Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(@url);
-            //Excel._Worksheet xlWorksheet = xlWorkBook.Sheets[1];
-            //Excel.Range xlRange = xlWorksheet.UsedRange;
-
-            //int rowCount = xlRange.Rows.Count;
-            // /*
-            //    col 1 = location number
-            //    col 2 = descriptoin
-            //    col 3 = Last name
-            //    col 4 = first name
-            //    col 5 = external phone 
-            //    col 6 = internal phone
-            //    col 7 = access card
-            //    col 8 = lock plug
-            //    excel is not 0 based
-            //  * */
-
-            //mapData = new List<Person>();
-
-
-            //for (int i = 2; i <= rowCount; i++)
-            //{
-
-            //    string deskNo = (xlRange.Cells[i, 1] != null && xlRange.Cells[i, 1].Value2 != null) ? xlRange.Cells[i, 1].Value2.ToString() as string : "";
-            //    string lName = (xlRange.Cells[i, 3] != null && xlRange.Cells[i, 3].Value2 != null) ? xlRange.Cells[i, 3].Value2.ToString() as string : "";
-            //    string fName = (xlRange.Cells[i, 4] != null && xlRange.Cells[i, 4].Value2 != null) ? xlRange.Cells[i, 4].Value2.ToString() as string : xlRange.Cells[i, 2].Value2.ToString();
-            //    string phoneNo = (xlRange.Cells[i, 7] != null && xlRange.Cells[i, 7].Value2 != null) ? xlRange.Cells[i, 7].Value2.ToString() as string : "";
-            //    string internalPhone = (xlRange.Cells[i, 8] != null && xlRange.Cells[i, 8].Value2 != null) ? xlRange.Cells[i, 8].Value2.ToString() as string : "";
-            //    string des = (xlRange.Cells[i, 2] != null && xlRange.Cells[i, 2].Value2 != null) ? xlRange.Cells[i, 2].Value2.ToString() as string : "";
-                
-            //    mapData.Add(new Person(fName, lName, deskNo, phoneNo, internalPhone, des));
-
-            //}
-
-            //mapData = mapData.OrderBy(x => x.deskNo).ToList();
-
-
-            //mainGraph.makeNodes();
-            //mainGraph.addData(mapData);
-            //if(!search)
-            //    convertToJson(mainGraph);
-
-            ////release objects and collect garbage
-            //releaseObject(xlRange);
-            //releaseObject(xlWorksheet);
-            
-            //xlWorkBook.Close();
-            //releaseObject(xlWorkBook);
-
-            //xlApp.Quit();
-            //releaseObject(xlApp);
+          
 
 
             string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
@@ -145,19 +73,7 @@ namespace FreeTime.Controllers
             }
 
 
-            //for (int i = 2; i <= rowCount; i++)
-            //{
-
-            //    string deskNo = (xlRange.Cells[i, 1] != null && xlRange.Cells[i, 1].Value2 != null) ? xlRange.Cells[i, 1].Value2.ToString() as string : "";
-            //    string lName = (xlRange.Cells[i, 3] != null && xlRange.Cells[i, 3].Value2 != null) ? xlRange.Cells[i, 3].Value2.ToString() as string : "";
-            //    string fName = (xlRange.Cells[i, 4] != null && xlRange.Cells[i, 4].Value2 != null) ? xlRange.Cells[i, 4].Value2.ToString() as string : xlRange.Cells[i, 2].Value2.ToString();
-            //    string phoneNo = (xlRange.Cells[i, 7] != null && xlRange.Cells[i, 7].Value2 != null) ? xlRange.Cells[i, 7].Value2.ToString() as string : "";
-            //    string internalPhone = (xlRange.Cells[i, 8] != null && xlRange.Cells[i, 8].Value2 != null) ? xlRange.Cells[i, 8].Value2.ToString() as string : "";
-            //    string des = (xlRange.Cells[i, 2] != null && xlRange.Cells[i, 2].Value2 != null) ? xlRange.Cells[i, 2].Value2.ToString() as string : "";
-
-            //    mapData.Add(new Person(fName, lName, deskNo, phoneNo, internalPhone, des));
-
-            //}
+           
 
             mapData = mapData.OrderBy(x => x.deskNo).ToList();
 
@@ -255,10 +171,14 @@ namespace FreeTime.Controllers
         [HttpGet]
         public string getJson()
         {
-            StreamReader sr = new StreamReader(pathToData);
-            StringBuilder sb = new StringBuilder();
-            sb.Append(sr.ReadToEnd());
-            return sb.ToString();
+            //StreamReader sr = new StreamReader(pathToData);
+            //StringBuilder sb = new StringBuilder();
+            //sb.Append(sr.ReadToEnd());
+            //return sb.ToString();
+            getMapData(false);
+            Graph jsonready = mainGraph.readyForJSON();
+            string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(jsonready);
+            return json;
         }
 
         public void writeJsonToFile(string json)
@@ -274,7 +194,9 @@ namespace FreeTime.Controllers
         [HttpGet]
         public string getPath(string start, string end, string floor)
         {
-            getExcel(true);
+            getMapData(true);
+            System.Diagnostics.Debug.WriteLine("Start is " + start);
+            System.Diagnostics.Debug.WriteLine("End is " + end);
             string path = mainGraph.FSP(start, end);
             return path;
         }

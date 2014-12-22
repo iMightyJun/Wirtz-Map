@@ -60,7 +60,6 @@ C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Web.WebP
 C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\obj\Debug\FreeTime.csprojResolveAssemblyReference.cache
 C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\obj\Debug\FreeTime.dll
 C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\obj\Debug\FreeTime.pdb
-C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\Scripts\custom\WBI Center - Seating Assignments - Updated AUG 2014.xlsx
 C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\Microsoft.CSharp.dll
 C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.ComponentModel.DataAnnotations.dll
 C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\bin\System.Configuration.dll

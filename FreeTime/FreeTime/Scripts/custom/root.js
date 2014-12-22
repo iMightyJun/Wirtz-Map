@@ -20,12 +20,14 @@ VM.index = (function (ko, $) {
                 self.showTravelDots('hidden');
         });
 
-        self.showTravelDots = ko.observable('visible');
+        self.showTravelDots = ko.observable('hidden');
         self.isSearching = ko.observable('hidden');
         self.secondFloorPath = ko.observable('');
         self.firstFloorPath = ko.observable('');
         self.firstFloorFirst = ko.observable(true);
+        self.stayOpen = false;
         var floor = 0;
+
 
 
         self.showTravel = function () {
@@ -43,7 +45,7 @@ VM.index = (function (ko, $) {
                 return;
             }
 
-            alert(ko.toJSON(self.selectedPerson().info, null, 2));
+            alert(ko.toJSON(self.selectedPerson(), null, 2));
         };
 
         //Spin code
@@ -69,18 +71,18 @@ VM.index = (function (ko, $) {
         var spinner = new Spinner(opts).spin(target);
 
         var validateSearch = function () {
-            if ((self.startPerson() == '' || self.endPerson() == '') || (self.startPerson().info.deskNo == self.endPerson().info.deskNo)) {
+            if ((self.startPerson() == '' || self.endPerson() == '') || (self.startPerson() == self.endPerson())) {
                 alert('Please enter a start AND destination Pl0X');
                 return;
             }
 
-            if (self.startPerson().info.deskNo[0] == '1' && self.endPerson().info.deskNo[0] == '1')
+            if (self.startPerson()[0] == '1' && self.endPerson()[0] == '1')
                 floor = 11;
-            else if (self.startPerson().info.deskNo[0] == '1' && self.endPerson().info.deskNo[0] == '2')
+            else if (self.startPerson()[0] == '1' && self.endPerson()[0] == '2')
                 floor = 12;
-            else if (self.startPerson().info.deskNo[0] == '2' && self.endPerson().info.deskNo[0] == '1')
+            else if (self.startPerson()[0] == '2' && self.endPerson()[0] == '1')
                 floor = 21;
-            else if (self.startPerson().info.deskNo[0] == '2' && self.endPerson().info.deskNo[0] == '2')
+            else if (self.startPerson()[0] == '2' && self.endPerson()[0] == '2')
                 floor = 22;
 
             //alert(floor);
@@ -88,10 +90,10 @@ VM.index = (function (ko, $) {
 
         var fixSearch = function () {
 
-            var startNo = self.startPerson().info.deskNo;
-            var endNo = self.endPerson().info.deskNo;
+            var startNo = self.startPerson();
+            var endNo = self.endPerson();
 
-            var rooms = ["2007", "1077", "1045", "1009", "1010", "1013", "1006"]
+            var rooms = ["2007", "1077", "1045", "1009", "1010", "1013", "1006", "1048"]
             for (var i = 0; i < rooms.length; i++) {
                 if (startNo.indexOf(rooms[i]) == 0) {
                     startNo = rooms[i];
@@ -106,7 +108,7 @@ VM.index = (function (ko, $) {
             return { start: startNo, end: endNo };
         };
 
-   
+
         self.getPath = function () {
             validateSearch();
             self.isSearching('visible');
@@ -114,20 +116,19 @@ VM.index = (function (ko, $) {
             var fixedNo = fixSearch();
             var startNo = fixedNo.start;
             var endNo = fixedNo.end;
-
             $.ajax({
                 type: "GET",
                 url: "../Home/getPath",
                 data: { start: startNo, end: endNo, floors: "" },
-                beforeSend: function() {
+                beforeSend: function () {
                     start_ts = new Date().getTime();
                 },
                 success: function (res) {
-                    alert(res);
+                    //alert(res);
                     self.isSearching('hidden');
                     attachPath(res);
                 },
-                complete: function(jqXHR, textStatus) {
+                complete: function (jqXHR, textStatus) {
                     var end_ts = new Date().getTime();
                     var diff = (end_ts - start_ts) / 1000;
                     console.log('Path drawing took ' + diff + ' seconds');
@@ -147,6 +148,8 @@ VM.index = (function (ko, $) {
 
 
         var attachPath = function (path) {
+            self.firstFloorPath('');
+            self.secondFloorPath('');
             if (floor == 11) {
                 self.firstFloorPath(path);
                 self.firstFloorFirst(true);
@@ -173,16 +176,89 @@ VM.index = (function (ko, $) {
                 self.secondFloorPath(splitPath[0]);
             }
         };
-       
-        self.flipBool = function () {
-            var bool = self.testVirtual();
-            self.testVirtual(!bool);
 
+
+        self.showDetails = function (data) {
+
+            $('#personInfoDialog').dialog({
+                autoOpen: false,
+                height: 200,
+                width: 300,
+                resizable: false,
+                title: 'Details',
+                open: function () {
+                    $(this).scrollTop(0);
+                },
+                close: function () {
+                    self.stayOpen = false;
+                },
+                position: [currentMousePos.x, currentMousePos.y]
+            });
+            $('#personName').text('Name: ' + data.info.fName + ' ' + data.info.lName);
+            $('#personPhone').text('Phone: ' + data.info.phoneNo);
+            $('#internalPhone').text('Internal Phone: ' + data.info.internalPhone);
+            $('#personDeskNo').text('Desk: ' + data);
+            $('#personInfoDialog').dialog('open');
+        }
+
+        self.toggleOpenDialog = function () {
+            self.stayOpen = !self.stayOpen;
+        }
+
+        self.hideDetails = function () {
+            if (!self.stayOpen)
+                $('#personInfoDialog').dialog('close');
+        }
+
+        self.getFillColor = function (desc) {
+            //Office, Conference Room, DM Station
+            if (desc == 'Workstation')
+                return '#44F213';
+            if (desc == 'Office')
+                return '#FFFF33';
+            if (desc == 'Conference Room')
+                return '#0066FF';
+            if (desc == 'DM Station')
+                return '#A375FF';
+            return '#FF99CC';
+        }
+
+        var buildAutocompleteSource = function () {
+            var retVal = [];
+            self.selectOptions().forEach(function (item) {
+                retVal.push(item.info.deskNo + ' - ' + item.info.fName + ' ' + item.info.lName);
+            });
+            return retVal;
         };
 
-    
+        $('#autoCompleteStart').autocomplete({
+            source: buildAutocompleteSource(),
+            select: function (event, ui) {
+                var val = ui.item.value;
+                var arr = val.split(' - ');
+                self.startPerson(arr[0]);
+            }
+        });
 
-       
+        $('#autoCompleteEnd').autocomplete({
+            source: buildAutocompleteSource(),
+            select: function (event, ui) {
+                var val = ui.item.value;
+                var arr = val.split(' - ');
+                self.endPerson(arr[0]);
+            }
+        });
+
+
+        
+        //Global functions
+
+        var currentMousePos = { x: -1, y: -1 };
+        $(document).mousemove(function (event) {
+            currentMousePos.x = event.pageX - $(window).scrollLeft();
+            currentMousePos.y = event.pageY - $(window).scrollTop();
+        });
+
 
     }
     function initModule(mapd) {
@@ -190,7 +266,7 @@ VM.index = (function (ko, $) {
         mapd.nodes.forEach(function (item) {
             console.log(ko.toJSON(item, null, 2));
             if (item.info != null) {
-                if(item.info.fName.indexOf('Stair') == -1)
+                if (item.info.fName.indexOf('Stair') == -1)
                     selectedData.push(item);
             }
         });

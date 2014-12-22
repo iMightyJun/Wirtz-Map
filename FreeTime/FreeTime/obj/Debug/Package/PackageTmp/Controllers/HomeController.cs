@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Runtime.Serialization.Json;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Text;
 using System.IO;
 using Newtonsoft.Json;
@@ -29,7 +28,7 @@ namespace FreeTime.Controllers
             //if (!System.IO.File.Exists(pathToData))
             //{
             //    System.Diagnostics.Debug.WriteLine("Getting excel");
-            //    getExcel();
+            //    getMapData();
             //}
             //else
             //{
@@ -37,7 +36,7 @@ namespace FreeTime.Controllers
             //    convertFromJson();
             //}
 
-            getExcel(false);
+            getMapData(false);
             System.Diagnostics.Debug.WriteLine("finished");
             return View();
         }
@@ -59,7 +58,7 @@ namespace FreeTime.Controllers
 
          */
         [HttpGet]
-        public void getExcel(bool search)
+        public void getMapData(bool search)
         {
             //C:\Users\JCheng\Documents\GitHub\Wirtz-Map\FreeTime\FreeTime\Scripts\custom\WBI Center - Seating Assignments - Updated AUG 2014.xlsx
             //string url = "C:\\Users\\JCheng\\Documents\\GitHub\\Wirtz-Map\\FreeTime\\FreeTime\\Scripts\\custom\\WBI Center - Seating Assignments - Updated AUG 2014.xlsx";
@@ -165,8 +164,8 @@ namespace FreeTime.Controllers
 
             mainGraph.makeNodes();
             mainGraph.addData(mapData);
-            if (!search)
-                convertToJson(mainGraph);
+            //if (!search)
+            //    convertToJson(mainGraph);
         }
 
         [HttpPost]
@@ -256,10 +255,14 @@ namespace FreeTime.Controllers
         [HttpGet]
         public string getJson()
         {
-            StreamReader sr = new StreamReader(pathToData);
-            StringBuilder sb = new StringBuilder();
-            sb.Append(sr.ReadToEnd());
-            return sb.ToString();
+            //StreamReader sr = new StreamReader(pathToData);
+            //StringBuilder sb = new StringBuilder();
+            //sb.Append(sr.ReadToEnd());
+            //return sb.ToString();
+            getMapData(false);
+            Graph jsonready = mainGraph.readyForJSON();
+            string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(jsonready);
+            return json;
         }
 
         public void writeJsonToFile(string json)
@@ -275,7 +278,7 @@ namespace FreeTime.Controllers
         [HttpGet]
         public string getPath(string start, string end, string floor)
         {
-            getExcel(true);
+            getMapData(true);
             string path = mainGraph.FSP(start, end);
             return path;
         }

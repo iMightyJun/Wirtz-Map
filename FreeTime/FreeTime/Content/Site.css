@@ -29,9 +29,10 @@ vertical-align:middle;
 }
 
 #mainContainer {
-    height: 850px;
+    height: 100%;
     width: 2300px;
     z-index: 1;
+    background: #F5F5FF;
 }
 
 .mapSearchFirstFloor {

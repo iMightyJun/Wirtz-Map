@@ -2032,7 +2032,7 @@ namespace FreeTime.Models
             this.nodes.Add(v2102adj);
 
             Vertex v2105 = new Vertex(Int32.MaxValue, "2105", 746, 274, 80, 80);
-            Vertex v2106 = new Vertex(Int32.MaxValue, "2106", 826, 388, 100, 67);
+            Vertex v2106 = new Vertex(Int32.MaxValue, "2106", 826, 388, 100, 68);
             Vertex v2106adj = Vertex.makeAdjacent(ref v2106, "v2106adj", 2, "right", 26);
             this.nodes.Add(v2106adj);
             Vertex.connectVertex(ref v2106adj, ref v205637walk, 1);
@@ -2041,7 +2041,7 @@ namespace FreeTime.Models
             Vertex v2107adj = Vertex.makeAdjacent(ref v2107, "v2107adj", 2, "down", 44);
             this.nodes.Add(v2107adj);
 
-            Vertex v2108 = new Vertex(Int32.MaxValue, "2108", 746, 388, 80, 67);
+            Vertex v2108 = new Vertex(Int32.MaxValue, "2108", 745, 388, 81, 68);
             Vertex v2108adj = Vertex.makeAdjacent(ref v2108, "v2108adj", 2, "up", 46);
             this.nodes.Add(v2108adj);
 
@@ -2710,8 +2710,12 @@ namespace FreeTime.Models
             //find source and target
             foreach (Vertex v in this.nodes)
             {
+                if (v.info == null)
+                    System.Diagnostics.Debug.WriteLine("Info for node " + v.name + " is null");
                 if (!v.name.Contains("travel"))
                 {
+                    System.Diagnostics.Debug.WriteLine(v.name);
+
                     if (v.info.deskNo == s)
                     {
                         System.Diagnostics.Debug.WriteLine("Source found");
