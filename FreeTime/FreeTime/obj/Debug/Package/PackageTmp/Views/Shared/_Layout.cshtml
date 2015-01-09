@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-
+    @Scripts.Render("~/bundles/jqueryui")
+    
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/customscripts")
     <script>
         var home;
         $(document).ready(function () {
-            
+
             $.ajax({
                 url: '../Home/getJson',
                 type: 'GET',
@@ -23,6 +27,8 @@
                     alert(xhr + "\n" + textStatus + "\n" + errorThrown);
                 }
             });
+            
+
         });
     </script>
 </head>
@@ -33,8 +39,6 @@
 
     @RenderBody()
 
-    @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/customscripts")
 
     @RenderSection("scripts", required: false)
 </body>

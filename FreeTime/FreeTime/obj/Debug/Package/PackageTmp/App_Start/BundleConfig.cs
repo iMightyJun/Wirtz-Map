@@ -20,6 +20,7 @@ namespace FreeTime
 
             bundles.Add(new ScriptBundle("~/bundles/customscripts").Include(
                         "~/Scripts/custom/root.js",
+                        "~/Scripts/custom/adminVM.js",
                         "~/Scripts/spin.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

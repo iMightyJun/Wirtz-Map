@@ -5,6 +5,7 @@ VM.index = (function (ko, $) {
 
     function home(mapd, optionsd) {
         var self = this;
+        self.adminVM = new adminVM(optionsd);
         self.path = ko.observable('M10 10');
         self.mapData = ko.observableArray(mapd);
         self.selectOptions = ko.observableArray(optionsd);
@@ -12,7 +13,7 @@ VM.index = (function (ko, $) {
         self.mapMode = ko.observable('search');
         self.startPerson = ko.observable('');
         self.endPerson = ko.observable('');
-        self.toggleTravelDots = ko.observable(true);
+        self.toggleTravelDots = ko.observable(false);
         self.toggleTravelDots.subscribe(function (newValue) {
             if (newValue)
                 self.showTravelDots('visible');
@@ -197,7 +198,7 @@ VM.index = (function (ko, $) {
             $('#personName').text('Name: ' + data.info.fName + ' ' + data.info.lName);
             $('#personPhone').text('Phone: ' + data.info.phoneNo);
             $('#internalPhone').text('Internal Phone: ' + data.info.internalPhone);
-            $('#personDeskNo').text('Desk: ' + data);
+            $('#personDeskNo').text('Desk: ' + data.info.deskNo);
             $('#personInfoDialog').dialog('open');
         }
 
@@ -213,15 +214,17 @@ VM.index = (function (ko, $) {
         self.getFillColor = function (desc) {
             //Office, Conference Room, DM Station
             if (desc == 'Workstation')
-                return '#44F213';
+                return '#D1DBBD';
             if (desc == 'Office')
-                return '#FFFF33';
+                return '#91AA9D';
             if (desc == 'Conference Room')
-                return '#0066FF';
+                return '#3E606F';
             if (desc == 'DM Station')
-                return '#A375FF';
-            return '#FF99CC';
+                return '#193441';
+            return '#91AA9D';
+            //return 'none';
         }
+
 
         var buildAutocompleteSource = function () {
             var retVal = [];
@@ -259,6 +262,40 @@ VM.index = (function (ko, $) {
             currentMousePos.y = event.pageY - $(window).scrollTop();
         });
 
+        self.testLDAP = function () {
+            $.ajax({
+                type: "GET",
+                url: "../Home/testLDAP",
+                data: {},
+                success: function (res) {
+                    compareLDAP(res);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert(xhr + "\n" + textStatus + "\n" + errorThrown);
+                }
+            });
+        };
+
+        var compareLDAP = function (adData) {
+            var missingArr = [];
+            adData.forEach(function (item) {
+                missingArr.push(item.fName + ' ' + item.lName);
+            });
+            var currMap = [];
+            console.log(missingArr.length);
+            adData.forEach(function (item) {
+                self.selectOptions().forEach(function (currItem) {
+                    if (item.fName == currItem.info.fName && item.lName == currItem.info.lName) {
+                        var index = missingArr.indexOf(item.fName + ' ' + item.lName);
+                        missingArr.splice(index, 1);
+                        return;
+                    }
+                });
+            });
+            //console.log(ko.toJSON(missingArr, null, 2));
+            console.log(missingArr.length);
+            console.log(self.selectOptions().length);
+        };
 
     }
     function initModule(mapd) {

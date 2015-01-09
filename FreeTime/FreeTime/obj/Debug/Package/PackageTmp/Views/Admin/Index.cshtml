@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Admin Controls";
+}
+
+<div id="adminContainer" data-bind="with: adminVM">
+    <script type="text/html" id="listOfEmployees-Row">
+        <td><span data-bind="text: fName"></span></td>
+        <td><span data-bind="text: lName"></span></td>
+        <td><span data-bind="text: internalPhone"></span></td>
+        <td><span><a data-bind="attr : { href: 'mailto:' + email }, text: email"></a></span></td>
+        <td><span data-bind="text: description"></span></td>
+        <td>
+            <button data-bind="click: adminVM.openEditEmployeeAdmin($data)">Select</button></td>
+    </script>
+    <div id="editEmployeeAdmin" style="display: none">
+        <p>Desk Number: <input id="employeeDeskNo"/></p>
+        <p>First Name: <input id="employeeFName" readonly="readonly"/></p>
+        <p>Last Name: <input id="employeeLName" readonly="readonly" /></p>
+        <p><input /></p>
+    </div>
+
+
+    <p>Find specific person</p>
+    <p>
+        <input id="findPersonInput" data-bind="value: searchTerm, valueUpdate: 'keyup'" />
+        <button id="findPersonButton" data-bind="click: findPerson">Find Person</button>
+    </p>
+
+    <div>
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Phone</td>
+                <td>Email</td>
+                <td>Description</td>
+                <td></td>
+            </tr>
+            <!-- ko foreach: listOfEmployees -->
+            <tr data-bind="template: { name: 'listOfEmployees-Row', data: $data }"></tr>
+            <!-- /ko -->
+        </table>
+
+    </div>
+</div>

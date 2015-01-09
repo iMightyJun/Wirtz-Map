@@ -11,7 +11,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Start/BundleConfig.cs">
-      <publishTime>10/06/2014 11:37:21</publishTime>
+      <publishTime>12/23/2014 11:04:37</publishTime>
     </File>
     <File Include="App_Start/FilterConfig.cs">
       <publishTime>08/22/2014 13:30:30</publishTime>
@@ -29,10 +29,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2014 13:30:31</publishTime>
     </File>
     <File Include="bin/FreeTime.dll">
-      <publishTime>11/18/2014 11:26:47</publishTime>
+      <publishTime>01/09/2015 15:20:37</publishTime>
     </File>
     <File Include="bin/FreeTime.pdb">
-      <publishTime>11/18/2014 11:26:47</publishTime>
+      <publishTime>01/09/2015 15:20:37</publishTime>
     </File>
     <File Include="bin/Microsoft.CSharp.dll">
       <publishTime>03/18/2010 19:31:26</publishTime>
@@ -59,6 +59,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/18/2010 19:31:26</publishTime>
     </File>
     <File Include="bin/System.Data.Entity.dll">
+      <publishTime>03/18/2010 19:31:26</publishTime>
+    </File>
+    <File Include="bin/System.DirectoryServices.dll">
       <publishTime>03/18/2010 19:31:26</publishTime>
     </File>
     <File Include="bin/System.dll">
@@ -143,7 +146,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2014 13:30:35</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>10/09/2014 14:02:56</publishTime>
+      <publishTime>01/09/2015 14:38:59</publishTime>
     </File>
     <File Include="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png">
       <publishTime>08/22/2014 13:30:33</publishTime>
@@ -307,14 +310,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/themes/base/minified/jquery.ui.theme.min.css">
       <publishTime>08/22/2014 13:30:33</publishTime>
     </File>
+    <File Include="Controllers/AdminController.cs">
+      <publishTime>01/08/2015 14:58:51</publishTime>
+    </File>
     <File Include="Controllers/HomeController.cs">
-      <publishTime>11/18/2014 11:26:47</publishTime>
+      <publishTime>01/07/2015 09:02:15</publishTime>
     </File>
     <File Include="FreeTime.csproj">
-      <publishTime>11/18/2014 11:26:47</publishTime>
+      <publishTime>01/08/2015 10:48:46</publishTime>
     </File>
     <File Include="FreeTime.csproj.user">
-      <publishTime>11/18/2014 11:26:47</publishTime>
+      <publishTime>01/08/2015 10:48:46</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>10/21/2014 13:36:25</publishTime>
@@ -329,10 +335,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2014 08:38:41</publishTime>
     </File>
     <File Include="Models/Graph.cs">
-      <publishTime>10/14/2014 11:48:37</publishTime>
+      <publishTime>01/09/2015 15:20:36</publishTime>
     </File>
     <File Include="Models/Person.cs">
-      <publishTime>11/05/2014 10:45:22</publishTime>
+      <publishTime>01/08/2015 14:58:38</publishTime>
     </File>
     <File Include="Models/Vertex.cs">
       <publishTime>10/13/2014 16:48:23</publishTime>
@@ -346,8 +352,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Properties/PublishProfiles/WirtzIntApps.pubxml">
       <publishTime>10/21/2014 13:42:32</publishTime>
     </File>
+    <File Include="Scripts/custom/adminVM.js">
+      <publishTime>01/09/2015 10:00:44</publishTime>
+    </File>
     <File Include="Scripts/custom/root.js">
-      <publishTime>11/25/2014 09:39:53</publishTime>
+      <publishTime>01/08/2015 10:37:42</publishTime>
     </File>
     <File Include="Scripts/custom/WBI Center - Seating Assignments - Updated AUG 2014.xlsx">
       <publishTime>10/22/2014 10:43:30</publishTime>
@@ -400,17 +409,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/_references.js">
       <publishTime>08/22/2014 13:30:33</publishTime>
     </File>
+    <File Include="Views/Admin/Index.cshtml">
+      <publishTime>01/09/2015 10:03:18</publishTime>
+    </File>
     <File Include="Views/Home/Browse.cshtml">
       <publishTime>09/08/2014 08:18:49</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>10/13/2014 15:51:18</publishTime>
+      <publishTime>01/09/2015 14:42:46</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>08/22/2014 13:30:30</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>10/07/2014 09:34:58</publishTime>
+      <publishTime>12/22/2014 08:32:32</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/22/2014 13:30:30</publishTime>
@@ -419,7 +431,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/22/2014 13:45:30</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>11/25/2014 09:40:09</publishTime>
+      <publishTime>01/09/2015 15:22:22</publishTime>
     </File>
     <File Include="Web.Debug.config">
       <publishTime>08/22/2014 13:30:30</publishTime>

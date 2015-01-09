@@ -18,28 +18,25 @@
 </div>
 
 <div id ="mapControls">
-    Start: <select style="display:inline" data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, optionsCaption: 'Choose...' "></select>
+    <p style="display:inline">Start: <input type="text" id="autoCompleteStart"/></p>
+    <p style="display:inline">Destination: <input type="text" id="autoCompleteEnd"/></p>
+    <button style="display:inline" data-bind="click: getPath">Get Path</button>
 
-    Destination: <select style="display:inline" data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } },  optionsCaption: 'Choose...' "></select>
-
-    <button style="display:inline" data-bind="click: getPath">Shortest Paths</button>
-
-    <br />
+    @*<br />
     <button data-bind="click: getPersonInfo">Get Person Info</button>
 
-    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
+    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
 
     <br />
     <button data-bind="click: changeView">Change View</button>
     <button data-bind="click: showTravel">Toggle Travel Dots</button>
     <button data-bind="click: flipFloors">Flip Floors</button>
-    <p style="display:inline">Start: <input type="text" id="autoCompleteStart"/></p>
-    <p style="display:inline">Destination: <input type="text" id="autoCompleteEnd"/></p>
+    <br />*@
 
     
 </div>
-
-<div id="mainContainer">
+<br />
+<div id="mainContainer" >
 
 <!-- ko if: mapMode() == 'search' -->
 
@@ -47,7 +44,7 @@
         <div class="mapSearchFirstFloor" style="border: 2px solid">
 
             <svg height="800px" width="2130px" >
-                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+                
 
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
@@ -60,7 +57,7 @@
                     <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
             </svg>
 
         </div>
@@ -72,7 +69,6 @@
                 <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
                 <path d="M926 660 L940 690" stroke="black" stroke-width="2" fill="none"/>
 
-                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
 
@@ -85,7 +81,8 @@
                     <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                 <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
             </svg>
 
 
@@ -99,7 +96,6 @@
             <svg height="800px" width="2130px" >
                 <path d="M926 0 V660" stroke="black" stroke-width="2" fill="none"/>
                 <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
-                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
 
@@ -112,7 +108,8 @@
                     <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
             </svg>
 
 
@@ -122,7 +119,6 @@
         <div class="mapSearchFirstFloor" style="border: 2px solid">
 
             <svg height="800px" width="2130px" >
-                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
 
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
@@ -135,7 +131,8 @@
                     <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
             </svg>
 
         </div>

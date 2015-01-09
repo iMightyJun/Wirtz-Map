@@ -1,35 +1,42 @@
 ﻿@{
-    ViewBag.Title = "index";
+    ViewBag.Title = "Wirtz Map";
 }
+
+
 <div id="mainOverlay" data-bind="style: {visibility: isSearching }">
     <div id="loadingSpin"></div>
 
 </div>
 
+
+<div id="personInfoDialog" style="display: none">
+    <span id="personName"></span><br />
+    <span id="personPhone"></span><br />
+    <span id="internalPhone"></span><br />
+    <span id="personDeskNo"></span>
+    
+</div>
+
 <div id ="mapControls">
-    Start:<select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: startPerson, optionsCaption: 'Choose...' "></select>
+    <p style="display:inline">Start: <input type="text" id="autoCompleteStart"/></p>
+    <p style="display:inline">Destination: <input type="text" id="autoCompleteEnd"/></p>
+    <button style="display:inline" data-bind="click: getPath">Get Path</button>
 
-    <br />
-    Destination:<select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: endPerson, optionsCaption: 'Choose...' "></select>
-
-    <button data-bind="click: getPath">Shortest Paths</button>
-    <br />
+    @*<br />
     <button data-bind="click: getPersonInfo">Get Person Info</button>
-    <br />
 
-    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.deskNo + '-' + item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
+    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
 
     <br />
     <button data-bind="click: changeView">Change View</button>
-    <br />
     <button data-bind="click: showTravel">Toggle Travel Dots</button>
-    <br />
     <button data-bind="click: flipFloors">Flip Floors</button>
+    <br />*@
 
-
+    
 </div>
-
-<div id="mainContainer">
+<br />
+<div id="mainContainer" >
 
 <!-- ko if: mapMode() == 'search' -->
 
@@ -37,20 +44,20 @@
         <div class="mapSearchFirstFloor" style="border: 2px solid">
 
             <svg height="800px" width="2130px" >
-                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+                
 
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
-                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
+                    <circle class="employeePoint" r="6" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY }, event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
                     <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
             </svg>
 
         </div>
@@ -58,22 +65,24 @@
         <div class="mapSearchSecondFloor" style="border: 2px solid">
 
             <svg height="800px" width="2130px" >
-                <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
+                <path d="M926 0 V660" stroke="black" stroke-width="2" fill="none"/>
                 <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
-                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+                <path d="M926 660 L940 690" stroke="black" stroke-width="2" fill="none"/>
+
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
 
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
-                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
+                    <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
                     <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                 <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
             </svg>
 
 
@@ -85,22 +94,22 @@
         <div class="mapSearchSecondFloor" style="border: 2px solid">
 
             <svg height="800px" width="2130px" >
-                <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
+                <path d="M926 0 V660" stroke="black" stroke-width="2" fill="none"/>
                 <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
-                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
 
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
-                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
+                    <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
                     <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                                <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
             </svg>
 
 
@@ -110,20 +119,20 @@
         <div class="mapSearchFirstFloor" style="border: 2px solid">
 
             <svg height="800px" width="2130px" >
-                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
 
                 <!-- ko foreach: mapData   -->
                 <!-- ko if: $data.info != null -->
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
-                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-                    <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black"/>
+                    <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
                     <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
- 
+                                <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
+
             </svg>
 
         </div>
@@ -139,7 +148,7 @@
         <!-- ko if: $data.info != null -->
         <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
             <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-            <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+            <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
         <!-- /ko -->
         <!-- /ko -->
         <!-- /ko -->
@@ -153,7 +162,7 @@
         <!-- ko if: $data.info != null -->
         <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
             <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-            <circle r="6" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
+            <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
         <!-- /ko -->
         <!-- /ko -->
         <!-- /ko -->

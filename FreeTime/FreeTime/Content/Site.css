@@ -30,9 +30,10 @@ vertical-align:middle;
 
 #mainContainer {
     height: 100%;
-    width: 2300px;
+    width: 2130px;
     z-index: 1;
-    background: #F5F5FF;
+    background: #FCFFF5;
+    zoom: 85%;
 }
 
 .mapSearchFirstFloor {
@@ -71,6 +72,20 @@ header, footer, nav, section {
     display: block;
 }
 
+
+#employeeListAdmin {
+
+    width: 50%;
+    margin: 0 auto;
+    height: 1000px;
+    text-align: center;
+
+}
+
+    #employeeListAdmin table {
+            text-align:center;
+            width: 100%;
+    }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

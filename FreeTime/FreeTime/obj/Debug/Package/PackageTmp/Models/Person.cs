@@ -13,6 +13,7 @@ namespace FreeTime.Models
         public string phoneNo { get; set; }
         public string internalPhone { get; set; }
         public string description { get; set; }
+        public string email { get; set; }
 
         public Person()
         {
@@ -23,7 +24,7 @@ namespace FreeTime.Models
             this.internalPhone = "";
         }
 
-        public Person(string f, string l, string d, string p, string i, string des)
+        public Person(string f, string l, string d, string p, string i, string des, string mail = "N/A")
         {
             this.fName = f;
             this.lName = l;
@@ -31,7 +32,9 @@ namespace FreeTime.Models
             this.phoneNo = p;
             this.internalPhone = i;
             this.description = des;
+            this.email = mail;
         }
+
 
     }
 }

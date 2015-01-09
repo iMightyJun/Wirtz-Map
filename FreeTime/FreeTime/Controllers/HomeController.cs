@@ -10,6 +10,8 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.DirectoryServices;
+using System.Diagnostics;
 
 namespace FreeTime.Controllers
 {
@@ -24,19 +26,12 @@ namespace FreeTime.Controllers
         Graph mainGraph = new Graph();
         public ActionResult Index()
         {
-            
-
             getMapData(false);
             System.Diagnostics.Debug.WriteLine("finished");
             return View();
         }
 
-        public ActionResult Browse()
-        {
-            return View();
-        }
         
-
          
         [HttpGet]
         public void getMapData(bool search)
@@ -57,12 +52,12 @@ namespace FreeTime.Controllers
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        fName = (string)reader.GetValue(1);
-                        lName = (string)reader.GetValue(2);
-                        deskNo = (string)reader.GetValue(3);
-                        phoneNo = (string)reader.GetValue(4);
-                        internalPhone = (string)reader.GetValue(5);
-                        description = (string)reader.GetValue(6);
+                        fName = reader["fName"].ToString();
+                        lName = reader["lName"].ToString();
+                        deskNo = reader["deskNo"].ToString();
+                        phoneNo = reader["phoneNo"].ToString();
+                        internalPhone = reader["internalPhone"].ToString();
+                        description = reader["description"].ToString();
                         mapData.Add(new Person(fName, lName, deskNo, phoneNo, internalPhone, description));
 
                     }
@@ -176,6 +171,7 @@ namespace FreeTime.Controllers
             //sb.Append(sr.ReadToEnd());
             //return sb.ToString();
             getMapData(false);
+            mainGraph.nodes.Reverse();
             Graph jsonready = mainGraph.readyForJSON();
             string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(jsonready);
             return json;
@@ -214,5 +210,7 @@ namespace FreeTime.Controllers
 
             return path;
         }
+
+        
     }
 }
