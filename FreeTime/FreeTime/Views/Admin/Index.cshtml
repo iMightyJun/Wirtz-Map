@@ -2,6 +2,8 @@
     ViewBag.Title = "Admin Controls";
 }
 
+
+
 <div id="adminContainer" data-bind="with: adminVM">
     <script type="text/html" id="listOfEmployees-Row">
         <td><span data-bind="text: fName"></span></td>
@@ -12,6 +14,7 @@
         <td>
             <button data-bind="click: function() { $root.adminVM.openEditEmployeeAdmin($data); }">Select</button></td>
     </script>
+
     <div id="editEmployeeAdmin" style="display: none">
         <p>Desk Number:
             <input id="employeeDeskNo" /></p>
@@ -20,6 +23,8 @@
         <p>Last Name:
             <input id="employeeLName" readonly="readonly" /></p>
         <p>Email: <a id="employeeEmail" style="color: blue"></a></p>
+        <p><button id="updateEmployeeAdmin">Update</button></p>
+        <p><button id="removeEmployeeAdmin">Remove from Map</button></p>
     </div>
 
 

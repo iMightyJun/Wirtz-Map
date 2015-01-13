@@ -4,6 +4,9 @@
     self.searchTerm = ko.observable();
     self.listOfEmployees = ko.observableArray([]);
     self.isSearching = ko.observable('none');
+    self.currFName = '';
+    self.currLName = '';
+    self.currDeskNo = '';
     self.getEmployee = function () {
         $.ajax({
             type: "GET",
@@ -23,6 +26,44 @@
         if (event.which == 13) {
             self.findPerson();
         }
+    });
+
+    $('#updateEmployeeAdmin').click(function () {
+        $.ajax({
+            url: "../Admin/updateDeskNumber",
+            type: "PUT",
+            data: { fName: self.currFName, lName: self.currLName },
+            success: function (res) {
+                alert(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Update desk number failed.');
+            }
+
+        });
+        $('#editEmployeeAdmin').dialog('close');
+        self.currFName = '';
+        self.currLName = '';
+        self.currDeskNo = '';
+    });
+
+    $('#removeEmployeeAdmin').click(function () {
+        $.ajax({
+            url: "../Admin/removeFromMap",
+            type: "DELETE",
+            data: { fName: self.currFName, lName: self.currLName, deskNo: self.currDeskNo },
+            success: function (res) {
+                alert(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Update desk number failed.');
+            }
+
+        });
+        $('#editEmployeeAdmin').dialog('close');
+        self.currFName = '';
+        self.currLName = '';
+        self.currDeskNo = '';
     });
 
     self.openEditEmployeeAdmin = function (data) {
@@ -51,7 +92,9 @@
                 alert(xhr + "\n" + textStatus + "\n" + errorThrown);
             }
         });
-
+        self.currFName = data.fName;
+        self.currLName = data.lName;
+        self.currDeskNo = $('#employeeDeskNo').val()
         $('#employeeFName').val(data.fName);
         $('#employeeLName').val(data.lName);
         $('#employeeEmail').attr('href', 'mailto:' + data.email);

@@ -21,6 +21,7 @@ namespace FreeTime.Controllers
             return View();
         }
 
+
         [HttpGet]
         public JsonResult testLDAP()
         {
@@ -104,6 +105,7 @@ namespace FreeTime.Controllers
                     {
                         retDesk = reader["deskNo"].ToString();
                     }
+                    connection.Close();
                 }
                 catch (Exception ex)
                 {
@@ -112,6 +114,88 @@ namespace FreeTime.Controllers
             }
             return retDesk;
 
+        }
+
+        [HttpGet]
+        public bool checkIfDeskAssigned(string deskNo)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
+            string query = "SELECT * FROM Person WHERE deskNo = @DESKNO";
+            int rows = -1;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@DESKNO", deskNo);
+                try
+                {
+                    connection.Open();
+                    rows = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            if (rows == 1)
+                return true;
+            return false;
+        }
+
+        [HttpPut]
+        public string updateDeskNumber(string fname, string lname, string deskNo)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
+            string query = "UPDATE Person SET deskNo = @DESKNO WHERE fName = @FNAME AND lName = @LNAME";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@FNAME", fname);
+                command.Parameters.AddWithValue("@LNAME", lname);
+                command.Parameters.AddWithValue("@DESKNO", deskNo);
+                try
+                {
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            return fname + " " + lname;
+        }
+
+        [HttpDelete]
+        public string removeFromMap(string fname, string lname, string deskNo)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
+            string query = "UPDATE Person SET fName = '', lname = ''  WHERE fName = @FNAME AND lName = @LNAME AND deskNo = @DESKNO";
+            int rows = -1;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@FNAME", fname);
+                command.Parameters.AddWithValue("@LNAME", lname);
+                command.Parameters.AddWithValue("@DESKNO", deskNo);
+                try
+                {
+                    connection.Open();
+                    rows = command.ExecuteNonQuery();
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            if (rows == 1)
+                return fname + " " + lname + " has been removed";
+            return "Employee was not found";
         }
     }
 }

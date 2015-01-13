@@ -61,6 +61,7 @@ namespace FreeTime.Controllers
                         mapData.Add(new Person(fName, lName, deskNo, phoneNo, internalPhone, description));
 
                     }
+                    connection.Close();
                 }
                 catch (Exception ex)
                 {
@@ -97,7 +98,7 @@ namespace FreeTime.Controllers
                 {
                     connection.Open();
                     int rowsAffected = command.ExecuteNonQuery();
-                    
+                    connection.Close();
 
                 }
                 catch (Exception ex)
@@ -121,6 +122,8 @@ namespace FreeTime.Controllers
                 {
                     connection.Open();
                     int rowsAffected = command.ExecuteNonQuery();
+                    connection.Close();
+
                 }
                 catch (Exception ex)
                 {

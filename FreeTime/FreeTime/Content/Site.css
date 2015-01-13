@@ -3,6 +3,11 @@
     margin: 5px 0px 0px 0px;
 
 }
+
+input[readonly="readonly"] {
+    background-color: #D3D3D3;
+}
+
 #loadingSpin {
 
 margin: 0 auto;
