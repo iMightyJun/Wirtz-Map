@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeTime", "FreeTime\FreeTime.csproj", "{2CD4F566-8104-4A90-A3E9-C3A0442E0497}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WirtzMap", "FreeTime\WirtzMap.csproj", "{2CD4F566-8104-4A90-A3E9-C3A0442E0497}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

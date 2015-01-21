@@ -10,10 +10,11 @@
 
 
 <div id="personInfoDialog" style="display: none">
-    <span id="personName"></span><br />
-    <span id="personPhone"></span><br />
-    <span id="internalPhone"></span><br />
-    <span id="personDeskNo"></span>
+    <p><span id="personName"></span></p>
+    <p><span id="internalPhone"></span></p>
+    <p><span id="personDeskNo"></span></p>
+    <p><a id="personEmail" style="color: blue"></a></p>
+    
     
 </div>
 
@@ -33,7 +34,8 @@
     <button data-bind="click: flipFloors">Flip Floors</button>
     <br />*@
 
-    
+        <button data-bind="click: showTravel">Toggle Travel Dots</button>
+
 </div>
 <br />
 <div id="mainContainer" >
@@ -50,11 +52,11 @@
                 <!-- ko if: $data.info != null -->
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
                     <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
-                    <circle class="employeePoint" r="6" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY }, event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
+                    <circle class="employeePoint" r="8" stroke="black" fill="red" data-bind="click: function() { @*$root.toggleOpenDialog($element);*@  alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
-                    <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                    <circle r="8" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>
@@ -74,11 +76,11 @@
 
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
                     <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
-                    <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
+                    <circle r="8" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
-                    <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                    <circle r="8"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
                  <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
@@ -101,11 +103,11 @@
 
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
                     <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
-                    <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
+                    <circle r="8" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 &&  $data.name.indexOf("2travel") == 0-->
-                    <circle r="6"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                    <circle r="8"  stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
                                 <path data-bind="attr: { d: secondFloorPath }" stroke="red" stroke-width="2" fill="none"/>
@@ -124,11 +126,11 @@
                 <!-- ko if: $data.info != null -->
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
                     <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black"/>
-                    <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
+                    <circle r="8" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
-                    <circle r="6" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
+                    <circle r="8" stroke="black" fill="blue" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, style:{ visibility: $root.showTravelDots }" />
                 <!-- /ko -->
                 <!-- /ko -->
                                 <path data-bind="attr: { d: firstFloorPath }" stroke="red" stroke-width="2" fill="none"/>

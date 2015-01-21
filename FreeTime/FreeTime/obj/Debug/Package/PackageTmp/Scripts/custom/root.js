@@ -183,7 +183,7 @@ VM.index = (function (ko, $) {
 
             $('#personInfoDialog').dialog({
                 autoOpen: false,
-                height: 200,
+                height: 220,
                 width: 300,
                 resizable: false,
                 title: 'Details',
@@ -196,9 +196,16 @@ VM.index = (function (ko, $) {
                 position: [currentMousePos.x, currentMousePos.y]
             });
             $('#personName').text('Name: ' + data.info.fName + ' ' + data.info.lName);
-            $('#personPhone').text('Phone: ' + data.info.phoneNo);
             $('#internalPhone').text('Internal Phone: ' + data.info.internalPhone);
             $('#personDeskNo').text('Desk: ' + data.info.deskNo);
+
+            if ((data.info.fName != '' && data.info.lName != '') && (data.info.fName != 'undefined' && data.info.lName != 'undefined')) {
+                $('#personEmail').attr('href', 'mailto:' + data.info.fName + '.' + data.info.lName + '@wirtzbev.com');
+
+                $('#personEmail').text(data.info.fName + '.' + data.info.lName + '@wirtzbev.com');
+            }
+
+
             $('#personInfoDialog').dialog('open');
         }
 
@@ -208,12 +215,27 @@ VM.index = (function (ko, $) {
 
         self.hideDetails = function () {
             if (!self.stayOpen)
-                $('#personInfoDialog').dialog('close');
+                closeDialog();
         }
 
+        function closeDialog() {
+
+            $('#personName').text('');
+            $('#internalPhone').text('');
+            $('#personDeskNo').text('');
+
+
+            $('#personEmail').attr('href', '');
+
+            $('#personEmail').text('');
+            $('#personInfoDialog').dialog('close');
+
+        }
+
+      
         self.getFillColor = function (desc) {
             //Office, Conference Room, DM Station
-            if (desc == 'Workstation')
+            if (desc == 'Workstation' || desc == 'Intern Application and Web Design')
                 return '#D1DBBD';
             if (desc == 'Office')
                 return '#91AA9D';
@@ -253,7 +275,7 @@ VM.index = (function (ko, $) {
         });
 
 
-        
+
         //Global functions
 
         var currentMousePos = { x: -1, y: -1 };
@@ -265,10 +287,10 @@ VM.index = (function (ko, $) {
         self.testLDAP = function () {
             $.ajax({
                 type: "GET",
-                url: "../Home/testLDAP",
+                url: "../ad/testLDAP",
                 data: {},
                 success: function (res) {
-                    compareLDAP(res);
+                    alert(res);
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     alert(xhr + "\n" + textStatus + "\n" + errorThrown);
@@ -276,26 +298,6 @@ VM.index = (function (ko, $) {
             });
         };
 
-        var compareLDAP = function (adData) {
-            var missingArr = [];
-            adData.forEach(function (item) {
-                missingArr.push(item.fName + ' ' + item.lName);
-            });
-            var currMap = [];
-            console.log(missingArr.length);
-            adData.forEach(function (item) {
-                self.selectOptions().forEach(function (currItem) {
-                    if (item.fName == currItem.info.fName && item.lName == currItem.info.lName) {
-                        var index = missingArr.indexOf(item.fName + ' ' + item.lName);
-                        missingArr.splice(index, 1);
-                        return;
-                    }
-                });
-            });
-            //console.log(ko.toJSON(missingArr, null, 2));
-            console.log(missingArr.length);
-            console.log(self.selectOptions().length);
-        };
 
     }
     function initModule(mapd) {

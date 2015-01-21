@@ -92,6 +92,22 @@ header, footer, nav, section {
             width: 100%;
     }
 
+#adminDialogTable {
+    width: 450px;
+}
+
+#adminDialogTable td {
+
+    text-align: center;
+
+}
+
+    #adminDialogTable input {
+    
+         width: 100%
+    
+    }
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {

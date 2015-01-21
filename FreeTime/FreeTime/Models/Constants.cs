@@ -317,14 +317,14 @@ namespace FreeTime.Models
         public const int Room1013Width = AlchemyWidth - Room1010Width - Room1009Width;
         public const int Room1013Height = 110;
 
-        public const int Room1012X = Room1013X;
-        public const int Room1012Y = Room1013Y + Room1013Height;
-        public const int Room1012Width = Room1013Width;
-        public const int Room1012Height = Room1010Height - Room1013Height;
+        public const int Room1011X = Room1013X;
+        public const int Room1011Y = Room1013Y + Room1013Height;
+        public const int Room1011Width = Room1013Width;
+        public const int Room1011Height = Room1010Height - Room1013Height;
 
-        public const int NorthStairsX = Room1012X;
+        public const int NorthStairsX = Room1011X;
         public const int NorthStairsY = Room1007Y;
-        public const int NorthStairsWidth = Room1012Width;
+        public const int NorthStairsWidth = Room1011Width;
         public const int NorthStairsHeight = Room1007Height + NorthBathroomHeight;
 
         #endregion

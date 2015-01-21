@@ -3,6 +3,11 @@
     margin: 5px 0px 0px 0px;
 
 }
+
+input[readonly="readonly"] {
+    background-color: #D3D3D3;
+}
+
 #loadingSpin {
 
 margin: 0 auto;
@@ -72,6 +77,36 @@ header, footer, nav, section {
     display: block;
 }
 
+
+#employeeListAdmin {
+
+    width: 50%;
+    margin: 0 auto;
+    height: 1000px;
+    text-align: center;
+
+}
+
+    #employeeListAdmin table {
+            text-align:center;
+            width: 100%;
+    }
+
+#adminDialogTable {
+    width: 450px;
+}
+
+#adminDialogTable td {
+
+    text-align: center;
+
+}
+
+    #adminDialogTable input {
+    
+         width: 100%
+    
+    }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

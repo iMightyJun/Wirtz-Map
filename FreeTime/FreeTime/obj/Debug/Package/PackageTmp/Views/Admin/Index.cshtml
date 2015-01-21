@@ -2,6 +2,8 @@
     ViewBag.Title = "Admin Controls";
 }
 
+
+
 <div id="adminContainer" data-bind="with: adminVM">
     <script type="text/html" id="listOfEmployees-Row">
         <td><span data-bind="text: fName"></span></td>
@@ -10,23 +12,54 @@
         <td><span><a data-bind="attr : { href: 'mailto:' + email }, text: email"></a></span></td>
         <td><span data-bind="text: description"></span></td>
         <td>
-            <button data-bind="click: adminVM.openEditEmployeeAdmin($data)">Select</button></td>
+            <button data-bind="click: function() { $root.adminVM.openEditEmployeeAdmin($data); }">Select</button></td>
     </script>
+
     <div id="editEmployeeAdmin" style="display: none">
-        <p>Desk Number: <input id="employeeDeskNo"/></p>
-        <p>First Name: <input id="employeeFName" readonly="readonly"/></p>
-        <p>Last Name: <input id="employeeLName" readonly="readonly" /></p>
-        <p><input /></p>
+        <table id="adminDialogTable">
+            <tr>
+                <td>Desk Number</td>
+                <td><input id="employeeDeskNo"  placeholder="No desk assigned"/></td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td><input id="employeeFName" readonly="readonly" /></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input id="employeeLName" readonly="readonly" /></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input id="employeeInternalPhone"/></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input id="employeeDescription" readonly="readonly" /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><a id="employeeEmail" style="color: blue"></a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="updateEmployeeAdmin">Update</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button id="removeEmployeeAdmin">Remove from Map</button></td>
+            </tr>
+        </table>
     </div>
 
 
-    <p>Find specific person</p>
-    <p>
-        <input id="findPersonInput" data-bind="value: searchTerm, valueUpdate: 'keyup'" />
-        <button id="findPersonButton" data-bind="click: findPerson">Find Person</button>
-    </p>
 
-    <div>
+
+    <div id="employeeListAdmin">
+        <p>Find specific person</p>
+        <p>
+            <input id="findPersonInput" data-bind="value: searchTerm, valueUpdate: 'keyup'" />
+            <button id="findPersonButton" data-bind="click: findPerson">Find Person</button>
+        </p>
+        <div id="loadingSpinAdmin" data-bind="style: {display: isSearching }"></div>
         <table>
             <tr>
                 <td>First Name</td>

@@ -4,9 +4,10 @@
     self.searchTerm = ko.observable();
     self.listOfEmployees = ko.observableArray([]);
     self.isSearching = ko.observable('none');
-    self.currFName = '';
-    self.currLName = '';
-    self.currDeskNo = '';
+    self.currFName = ko.observable('');
+    self.currLName = ko.observable('');
+    self.currDeskNo = ko.observable('');
+    self.isDeskAssigned = ko.observable('');
     self.getEmployee = function () {
         $.ajax({
             type: "GET",
@@ -21,7 +22,7 @@
 
         });
     }
-    
+
     $('#findPersonInput').keypress(function (event) {
         if (event.which == 13) {
             self.findPerson();
@@ -29,10 +30,35 @@
     });
 
     $('#updateEmployeeAdmin').click(function () {
+        checkIfDeskAssigned($('#employeeDeskNo').val());
+        if (self.isDeskAssigned() != ' ') {
+            var doRemove = confirm('Desk' + $('#employeeDeskNo').val() + ' is assigned to ' + self.isDeskAssigned() + '. Employee will be replaced. Are you sure?');
+            if (doRemove) {
+
+                if (self.currDeskNo() != '') {
+                    $.ajax({
+                        url: "../Admin/clearDesk",
+                        type: "DELETE",
+                        data: { deskNo: self.currDeskNo() },
+                        success: function (res) {
+                            alert(res);
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            alert('Update desk number failed.');
+                        }
+
+                    });
+                }
+            }
+            else {
+                return;
+            }
+        }
+
         $.ajax({
             url: "../Admin/updateDeskNumber",
             type: "PUT",
-            data: { fName: self.currFName, lName: self.currLName },
+            data: { fName: self.currFName(), lName: self.currLName(), deskNo:  $('#employeeDeskNo').val(), internalPhone: $('#employeeInternalPhone').val(), description:  $('#employeeDescription').val() },
             success: function (res) {
                 alert(res);
             },
@@ -41,17 +67,44 @@
             }
 
         });
-        $('#editEmployeeAdmin').dialog('close');
-        self.currFName = '';
-        self.currLName = '';
-        self.currDeskNo = '';
+        closeDialog();
+
     });
 
     $('#removeEmployeeAdmin').click(function () {
+        if ($('#employeeDeskNo').val() == '') {
+            alert('Employee has not been assigned a desk.');
+            return;
+        }
+        checkIfDeskAssigned($('#employeeDeskNo').val());
+        if (self.isDeskAssigned() != ' ') {
+            var doRemove = confirm('Desk ' + $('#employeeDeskNo').val() + ' is assigned to ' + self.isDeskAssigned() + '. Employee will be removed. Are you sure?');
+            if (doRemove) {
+                removeEmployee();
+            }
+            else {
+
+            }
+        }
+        closeDialog();
+
+    });
+
+    function closeDialog() {
+        $('#editEmployeeAdmin').dialog('close');
+        self.currFName('');
+        self.currLName('');
+        self.currDeskNo('');
+        self.isDeskAssigned('');
+    }
+
+    function removeEmployee() {
+        //alert(self.currFName() + ' ' + self.currLName() + ' ' + self.currDeskNo());
+
         $.ajax({
             url: "../Admin/removeFromMap",
             type: "DELETE",
-            data: { fName: self.currFName, lName: self.currLName, deskNo: self.currDeskNo },
+            data: { fName: self.currFName(), lName: self.currLName(), deskNo: self.currDeskNo() },
             success: function (res) {
                 alert(res);
             },
@@ -61,23 +114,37 @@
 
         });
         $('#editEmployeeAdmin').dialog('close');
-        self.currFName = '';
-        self.currLName = '';
-        self.currDeskNo = '';
-    });
+        
+    }
+
+    function checkIfDeskAssigned(desk) {
+        $.ajax({
+            url: "../Admin/checkIfDeskAssigned",
+            type: "GET",
+            data: { deskNo: desk },
+            async: false,
+            success: function (res) {
+                self.isDeskAssigned(res);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert('Update desk number failed.');
+            }
+
+        });
+    }
 
     self.openEditEmployeeAdmin = function (data) {
         $('#editEmployeeAdmin').dialog({
             autoOpen: false,
             height: 400,
-            width: 400,
+            width: 470,
             resizable: false,
             title: 'Details',
             open: function () {
                 $(this).scrollTop(0);
             },
             close: function () {
-                
+
             }
         });
 
@@ -85,18 +152,21 @@
             url: "../Admin/getDeskNumber",
             type: "GET",
             data: { fName: data.fName, lName: data.lName },
+            async: false,
             success: function (res) {
                 $('#employeeDeskNo').val(res);
+                self.currDeskNo(res);
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert(xhr + "\n" + textStatus + "\n" + errorThrown);
             }
         });
-        self.currFName = data.fName;
-        self.currLName = data.lName;
-        self.currDeskNo = $('#employeeDeskNo').val()
-        $('#employeeFName').val(data.fName);
-        $('#employeeLName').val(data.lName);
+        self.currFName(data.fName);
+        self.currLName(data.lName);
+        $('#employeeFName').val(self.currFName());
+        $('#employeeLName').val(self.currLName());
+        $('#employeeDescription').val(data.description);
+        $('#employeeInternalPhone').val(data.internalPhone);
         $('#employeeEmail').attr('href', 'mailto:' + data.email);
         $('#employeeEmail').text(data.email);
         $('#editEmployeeAdmin').dialog('open');
@@ -121,7 +191,7 @@
 
             },
             error: function (xhr, textStatus, errorThrown) {
-                alert(xhr + "\n" + textStatus + "\n" + errorThrown);
+                alert(ko.toJSON(xhr, null, 2) + "\n" + textStatus + "\n" + errorThrown);
             }
         });
     }
