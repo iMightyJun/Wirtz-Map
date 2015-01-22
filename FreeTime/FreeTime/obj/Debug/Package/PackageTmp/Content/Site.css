@@ -8,6 +8,14 @@ input[readonly="readonly"] {
     background-color: #D3D3D3;
 }
 
+#map-header {
+    height: 80px;
+    background-color: #771F1F;
+    border-bottom: solid 10px black;
+
+}
+
+
 #loadingSpin {
 
 margin: 0 auto;
@@ -31,6 +39,7 @@ vertical-align:middle;
 
 #mapControls {
     z-index: 1;
+    
 }
 
 #mainContainer {
@@ -39,6 +48,8 @@ vertical-align:middle;
     z-index: 1;
     background: #FCFFF5;
     zoom: 85%;
+    border:5px solid gray;
+    border-radius: 4px;
 }
 
 .mapSearchFirstFloor {

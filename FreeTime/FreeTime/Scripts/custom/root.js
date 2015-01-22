@@ -10,7 +10,6 @@ VM.index = (function (ko, $) {
         self.mapData = ko.observableArray(mapd);
         self.selectOptions = ko.observableArray(optionsd);
         self.selectedPerson = ko.observable();
-        self.mapMode = ko.observable('search');
         self.startPerson = ko.observable('');
         self.endPerson = ko.observable('');
         self.toggleTravelDots = ko.observable(false);
@@ -149,14 +148,7 @@ VM.index = (function (ko, $) {
             });
         };
 
-        self.changeView = function () {
-            if (self.mapMode() == 'search')
-                self.mapMode('browse');
-            else
-                self.mapMode('search');
-        }
-
-
+       
         var attachPath = function (path) {
             self.firstFloorPath('');
             self.secondFloorPath('');

@@ -2631,66 +2631,6 @@ namespace FreeTime.Models
             return null;
         }
 
-        public void buildGraph()
-        { Vertex a = new Vertex(Int32.MaxValue, "A", 10, 10);
-           
-            Vertex b = new Vertex(Int32.MaxValue, "B", 322, 40);
-            Vertex c = new Vertex(Int32.MaxValue, "C", 244, 120);
-            Vertex d = new Vertex(Int32.MaxValue, "D", 75, 234);
-            Vertex e = new Vertex(Int32.MaxValue, "E", 178, 346);
-            Vertex f = new Vertex(Int32.MaxValue, "F", 123, 333);
-
-            
-            Edge ab = new Edge(ref b, 7);
-            Edge ac = new Edge(ref c, 9);
-            Edge af = new Edge(ref f, 14);
-            a.addNeighbors(ref ab);
-            a.addNeighbors(ref ac);
-            a.addNeighbors(ref af);
-
-            Edge ba = new Edge(ref a, 7);
-            Edge bc = new Edge(ref c, 10);
-            Edge bd = new Edge(ref d, 15);
-            b.addNeighbors(ref ba);
-            b.addNeighbors(ref bc);
-            b.addNeighbors(ref bd);
-
-            Edge cf = new Edge(ref f, 2);
-            Edge ca = new Edge(ref a, 9);
-            Edge cb = new Edge(ref b, 10);
-            Edge cd = new Edge(ref d, 11);
-            c.addNeighbors(ref cf);
-            c.addNeighbors(ref ca);
-            c.addNeighbors(ref cb);
-            c.addNeighbors(ref cd);
-
-            Edge de = new Edge(ref e, 6);
-            Edge dc = new Edge(ref c, 11);
-            Edge db = new Edge(ref b, 15);
-            d.addNeighbors(ref de);
-            d.addNeighbors(ref dc);
-            d.addNeighbors(ref db);
-
-            Edge ed = new Edge(ref d, 6);
-            Edge ef = new Edge(ref f, 9);
-            e.addNeighbors(ref ed);
-            e.addNeighbors(ref ef);
-
-            Edge fa = new Edge(ref a, 14);
-            Edge fc = new Edge(ref c, 2);
-            Edge fe = new Edge(ref e, 9);
-            f.addNeighbors(ref fa);
-            f.addNeighbors(ref fc);
-            f.addNeighbors(ref fe);
-
-            this.nodes.Add(a);
-            this.nodes.Add(b);
-            this.nodes.Add(c);
-            this.nodes.Add(d);
-            this.nodes.Add(e);
-            this.nodes.Add(f);
-
-        }
 
         public Graph readyForJSON()
         {

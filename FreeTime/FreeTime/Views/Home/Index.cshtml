@@ -18,29 +18,22 @@
     
 </div>
 
-<div id ="mapControls">
-    <p style="display:inline">Start: <input type="text" id="autoCompleteStart"/></p>
-    <p style="display:inline">Destination: <input type="text" id="autoCompleteEnd"/></p>
-    <button style="display:inline" data-bind="click: getPath">Get Path</button>
+<div id="mapControls">
+     <p style="display:inline"><strong>Start: </strong><input type="text" size="40" id="autoCompleteStart"/></p>
+          <p style="display:inline"><strong>Destination: </strong><input type="text" size="40" id="autoCompleteEnd"/></p>
+         <button style="display:inline" data-bind="click: getPath">Get Path</button>
 
-    @*<br />
-    <button data-bind="click: getPersonInfo">Get Person Info</button>
-
-    <select data-bind="options: selectOptions, optionsText: function(item) { if (item.info != null) { return item.info.lName + ',' + item.info.fName; } }, value: selectedPerson, optionsCaption: 'Choose...' "></select>
-
-    <br />
-    <button data-bind="click: changeView">Change View</button>
-    <button data-bind="click: showTravel">Toggle Travel Dots</button>
-    <button data-bind="click: flipFloors">Flip Floors</button>
-    <br />*@
-
-        <button data-bind="click: showTravel">Toggle Travel Dots</button>
+@*        <button data-bind="click: showTravel">Toggle Travel Dots</button>*@
 
 </div>
 <br />
 <div id="mainContainer" >
+    <div id="map-header">
+       
 
-<!-- ko if: mapMode() == 'search' -->
+    </div>
+    <div style="text-align: center"><h4 style="font-size: 24px">Parking Lot</h4></div>
+        <div class="spacer" style="clear: both;"></div>
 
     <!-- ko if: firstFloorFirst() -->
         <div class="mapSearchFirstFloor" style="border: 2px solid">
@@ -52,7 +45,7 @@
                 <!-- ko if: $data.info != null -->
                 <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
                     <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $root.getFillColor($data.info.description) }" stroke="black" />
-                    <circle class="employeePoint" r="8" stroke="black" fill="red" data-bind="click: function() { @*$root.toggleOpenDialog($element);*@  alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }, event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
+                    <circle class="employeePoint" r="8" stroke="black" fill="red" data-bind="click: function() { $root.toggleOpenDialog($element); } , attr: { cx: midX , cy: midY }, event: { mouseover: function() { $root.showDetails($data) }, mouseout: function() { $root.hideDetails() } }" />
                 <!-- /ko -->
                 <!-- /ko -->
                 <!-- ko if: $data.xCoord != 0 && $data.name.indexOf("1travel") == 0-->
@@ -140,38 +133,8 @@
         </div>
 
     <!-- /ko -->
-<!-- /ko -->
-<!-- ko if: mapMode() == 'browse' -->
-        <div id="mapBrowse">
 
-     <svg height="800px" width="2130px" >
-        
-        <!-- ko foreach: mapData   -->
-        <!-- ko if: $data.info != null -->
-        <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
-            <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-            <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
-        <!-- /ko -->
-        <!-- /ko -->
-        <!-- /ko -->
- 
-    </svg>
-    <svg height="800px" width="2130px" >
-        <path d="M926 0 V668" stroke="black" stroke-width="2" fill="none"/>
-        <path d="M1236 0 V455" stroke="black" stroke-width="2" fill="none"/>
-        <path data-bind="attr: { d: path }" stroke="red" stroke-width="2" fill="none"/>
-        <!-- ko foreach: mapData   -->
-        <!-- ko if: $data.info != null -->
-        <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
-            <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord }" stroke="black" fill="none" />
-            <circle r="6" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { alert(ko.toJSON($data, null, 2)) } , attr: { cx: midX , cy: midY }" />
-        <!-- /ko -->
-        <!-- /ko -->
-        <!-- /ko -->
- 
-    </svg>
-    </div>
-<!-- /ko -->
+
 
     </div>
 

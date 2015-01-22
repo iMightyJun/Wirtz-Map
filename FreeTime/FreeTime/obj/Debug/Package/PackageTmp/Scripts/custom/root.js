@@ -10,7 +10,6 @@ VM.index = (function (ko, $) {
         self.mapData = ko.observableArray(mapd);
         self.selectOptions = ko.observableArray(optionsd);
         self.selectedPerson = ko.observable();
-        self.mapMode = ko.observable('search');
         self.startPerson = ko.observable('');
         self.endPerson = ko.observable('');
         self.toggleTravelDots = ko.observable(false);
@@ -73,7 +72,7 @@ VM.index = (function (ko, $) {
 
         var validateSearch = function () {
             if ((self.startPerson() == '' || self.endPerson() == '') || (self.startPerson() == self.endPerson())) {
-                alert('Please enter a start AND destination Pl0X');
+                alert('Please enter a start AND destination.');
                 return;
             }
 
@@ -94,7 +93,9 @@ VM.index = (function (ko, $) {
             var startNo = self.startPerson();
             var endNo = self.endPerson();
 
-            var rooms = ["2007", "1077", "1045", "1009", "1010", "1013", "1006", "1048"]
+
+
+            var rooms = ["2007", "1077", "1045", "1009", "1010", "1013", "1006", "1048", "1011"]
             for (var i = 0; i < rooms.length; i++) {
                 if (startNo.indexOf(rooms[i]) == 0) {
                     startNo = rooms[i];
@@ -104,9 +105,16 @@ VM.index = (function (ko, $) {
                 }
 
             }
-
+            startNo = checkWarehouse(startNo);
+            endNo = checkWarehouse(endNo);
             // IF doesn't need collapse
             return { start: startNo, end: endNo };
+        };
+
+        var checkWarehouse = function (deskNo) {
+            if (deskNo[0] == '1' && deskNo[1] == '1')
+                return "1102";
+            return deskNo;
         };
 
 
@@ -140,14 +148,7 @@ VM.index = (function (ko, $) {
             });
         };
 
-        self.changeView = function () {
-            if (self.mapMode() == 'search')
-                self.mapMode('browse');
-            else
-                self.mapMode('search');
-        }
-
-
+       
         var attachPath = function (path) {
             self.firstFloorPath('');
             self.secondFloorPath('');
