@@ -130,7 +130,7 @@ namespace FreeTime.Controllers
 
 
         [HttpGet]
-        public string getJson()
+        public string getMapJSON()
         {
             getMapData();
             mainGraph.nodes.Reverse();

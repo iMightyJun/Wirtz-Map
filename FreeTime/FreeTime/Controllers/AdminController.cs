@@ -19,39 +19,8 @@ namespace FreeTime.Controllers
 
         public ActionResult Index()
         {
+            // set up domain context
             return View();
-        }
-
-
-        [HttpGet]
-        public JsonResult testLDAP()
-        {
-            //string path = "LDAP://WBGAD.WIRTZBEV.COM/OU=WBGIL,DC=wbgad,DC=wirtzbev,DC=com";
-            //string retStr = "";
-            //List<Person> retList = new List<Person>();
-            //DirectoryEntry rootEntry = new DirectoryEntry(path);
-            //DirectorySearcher mySearcher = new DirectorySearcher(rootEntry);
-            //mySearcher.Filter = ("(&(objectCategory=Person)(objectClass=user))");
-            //mySearcher.PageSize = 250;
-            //foreach (SearchResult res in mySearcher.FindAll())
-            //{
-            //    DirectoryEntry de = res.GetDirectoryEntry();
-
-            //    if (de.Properties["sAMAccountName"].Value != null && de.Properties["givenName"].Value != null && de.Properties["sn"].Value != null && de.Properties["telephoneNumber"].Value != null && de.Properties["title"].Value != null)
-            //    {
-            //        //Debug.WriteLine("First Name " + de.Properties["givenName"].Value.ToString());
-            //        //Debug.WriteLine("Last Name " + de.Properties["sn"].Value.ToString());
-            //        //Debug.WriteLine("Telephone " + de.Properties["telephoneNumber"].Value.ToString());
-            //        //Debug.WriteLine("Title " + de.Properties["title"].Value.ToString());
-
-            //        retList.Add(new Person(de.Properties["givenName"].Value.ToString(), de.Properties["sn"].Value.ToString(), "", "", de.Properties["telephoneNumber"].Value.ToString(), de.Properties["title"].Value.ToString()));
-            //    }
-            //}
-            //string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(retList);
-            List<Person> retList = new List<Person>();
-            retList.Add(new Person("Hi", "LOL", "", "", "Durrr", "Boossss"));
-
-            return Json(retList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -104,11 +73,12 @@ namespace FreeTime.Controllers
         }
 
         [HttpGet]
-        public string getDeskNumber(string fName, string lName)
+        public string getDeskInfo(string fName, string lName)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
-            string query = "Select deskNo FROM Person WHERE fName = @FNAME AND lName = @LNAME";
+            string query = "Select * FROM Person WHERE fName = @FNAME AND lName = @LNAME";
             string retDesk = "";
+            string retDesc = "";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
@@ -122,6 +92,7 @@ namespace FreeTime.Controllers
                     while (reader.Read())
                     {
                         retDesk = reader["deskNo"].ToString();
+                        retDesc = reader["description"].ToString();
                     }
                     connection.Close();
                 }
@@ -130,7 +101,8 @@ namespace FreeTime.Controllers
 
                 }
             }
-            return retDesk;
+            var info = new { deskNumber = retDesk, desc = retDesc };
+            return new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(info);
 
         }
 
@@ -150,7 +122,10 @@ namespace FreeTime.Controllers
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        retVal = reader["fName"].ToString() + " " + reader["lName"].ToString();
+                        if (reader["lName"].ToString() == "OPEN")
+                            retVal = "OPEN";
+                        else
+                            retVal = reader["fName"].ToString() + " " + reader["lName"].ToString();
                     }
                     connection.Close();
                 }
@@ -195,7 +170,7 @@ namespace FreeTime.Controllers
         public string removeFromMap(string fname, string lname, string deskNo)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
-            string query = "UPDATE Person SET fName = '', lName = '', phoneNo = '', internalPhone = '', description = ''  WHERE fName = @FNAME AND lName = @LNAME AND deskNo = @DESKNO";
+            string query = "UPDATE Person SET fName = '', lName = 'OPEN', phoneNo = '', internalPhone = '', description = ''  WHERE fName = @FNAME AND lName = @LNAME AND deskNo = @DESKNO";
             int rows = -1;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -224,7 +199,7 @@ namespace FreeTime.Controllers
         {
             
             string connectionString = ConfigurationManager.ConnectionStrings["WirtzMap"].ConnectionString;
-            string query = "UPDATE Person SET fName = '', lName = '', phoneNo = '', internalPhone = '', description = ''  WHERE deskNo = @DESKNO";
+            string query = "UPDATE Person SET fName = '', lName = 'OPEN', phoneNo = '', internalPhone = '', description = ''  WHERE deskNo = @DESKNO";
             int rows = -1;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

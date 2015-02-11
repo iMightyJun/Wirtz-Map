@@ -287,7 +287,7 @@ namespace FreeTime.Models
 
             //Connect south side enterance
             #region Connect Southside Enterance
-            Vertex.connectVertex(ref v1060, ref v1060S, 100);
+            Vertex.connectVertex(ref v1060, ref v1060S, 10000);
             Vertex.connectVertex(ref v1060adj, ref v1059adj);
             Vertex.connectVertex(ref v1061adj, ref v1059adj);
             Vertex.connectVertex(ref v1061walk, ref v1050adj);
@@ -728,7 +728,7 @@ namespace FreeTime.Models
             Vertex v200900 = new Vertex(Int32.MaxValue, "2009.00", Constants.Room2009X, Constants.Room2009Y, Constants.Room2009Width, Constants.Room2009Height);
             Vertex v200900adj = Vertex.makeAdjacent(ref v200900, "v200900adj", 2, "down", 100);
             this.nodes.Add(v200900adj);
-            Vertex v200900walk = Vertex.makeAdjacent(ref v200900adj, "v200900walk", 2, "right", 110);
+            Vertex v200900walk = Vertex.makeAdjacent(ref v200900adj, "v200900walk", 2, "right", 110, 3);
             this.nodes.Add(v200900walk);
             
             Vertex v201000 = new Vertex(Int32.MaxValue, "2010.00", Constants.Room2010X, Constants.Room2010Y, Constants.Room2010Width, Constants.Room2010Height);
@@ -805,13 +805,13 @@ namespace FreeTime.Models
             secondfloorLobbyStairs.info = new Person("Lobby Stair", "", "2vlobby", "", "", "Stairs");
             this.nodes.Add(secondfloorLobbyStairs);
 
-            Vertex.connectVertex(ref secondfloorLobbyStairs, ref v1003, 100);
+            Vertex.connectVertex(ref secondfloorLobbyStairs, ref v1003, 100, true);
 
             Vertex secondfloorLobbyStairsadj = Vertex.makeAdjacent(ref secondfloorLobbyStairs, "secondfloorLobbyStairsadj", 2, "left", 2);
             this.nodes.Add(secondfloorLobbyStairsadj);
 
-            Vertex.connectVertex(ref secondfloorLobbyStairsadj, ref v201909walk);
-            Vertex vSecondFloorConnectNS = Vertex.makeAdjacent(ref secondfloorLobbyStairsadj, "vSecondFloorConnectNS", 2, "left", 351, 7);
+            Vertex.connectVertex(ref secondfloorLobbyStairsadj, ref v201909walk, 5);
+            Vertex vSecondFloorConnectNS = Vertex.makeAdjacent(ref secondfloorLobbyStairsadj, "vSecondFloorConnectNS", 2, "left", 351, 5);
             this.nodes.Add(vSecondFloorConnectNS);
 
             Vertex v20191adj = Vertex.makeAdjacent(ref v201910, "v20191adj", 2, "down", 35);
@@ -845,7 +845,7 @@ namespace FreeTime.Models
             Vertex v2022walk = Vertex.makeAdjacent(ref v2022adj, "v2022adj", 2, "right", 28);
             this.nodes.Add(v2022walk);
             //Connect North Stairs
-            Vertex.connectVertex(ref v2022, ref v1015, 100);
+            Vertex.connectVertex(ref v2022, ref v1015, 100, true);
             
 
             #region Connect Trade 
@@ -874,9 +874,9 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref v201914adj, ref v201915adj, 1);
             Vertex.connectVertex(ref v201915adj, ref v201916adj, 1);
             Vertex.connectVertex(ref v200900adj, ref v2011, 1);
-            Vertex.connectVertex(ref v200900adj, ref v2007adj, 1);
+            Vertex.connectVertex(ref v200900adj, ref v2007adj, 3);
             Vertex.connectVertex(ref v2007adj, ref v201000, 1);
-            Vertex.connectVertex(ref v2014walk, ref v201909walk, 1);
+            Vertex.connectVertex(ref v2014walk, ref v201909walk, 2);
             Vertex.connectVertex(ref v2022adj, ref v2021adj, 1);
             Vertex.connectVertex(ref v2022walk, ref v2018adj, 1);
             #endregion
@@ -891,9 +891,9 @@ namespace FreeTime.Models
             this.nodes.Add(northSecondBR);
             Vertex northSecondBRadj = Vertex.makeAdjacent(ref northSecondBR, "northSecondBRadj", 2, "left", 121);
             this.nodes.Add(northSecondBRadj);
-            Vertex.connectVertex(ref northSecondBRadj, ref v200900walk, 1);
-            Vertex.connectVertex(ref v200900walk, ref v2012adj, 1);
-            Vertex.connectVertex(ref v201909walk, ref northSecondBRadj, 1);
+            Vertex.connectVertex(ref northSecondBRadj, ref v200900walk, 3);
+            Vertex.connectVertex(ref v200900walk, ref v2012adj, 4);
+            Vertex.connectVertex(ref v201909walk, ref northSecondBRadj, 6);
 
             //Sales Cubicles
             Vertex v202601 = new Vertex(Int32.MaxValue, "2026.01", Constants.Sales202601_17X + Constants.CubicleWidth * 0, Constants.Sales202601_17Y, Constants.CubicleWidth, Constants.CubicleHeight);
@@ -1184,27 +1184,27 @@ namespace FreeTime.Models
 
             Vertex.connectVertex(ref v202701walk, ref v2018walk, 1);
             Vertex.connectVertex(ref v2022walk, ref v202713corner, 1);
-            Vertex.connectVertex(ref v202701walk, ref v202713corner, 1);
-            Vertex.connectVertex(ref v202713walk, ref v202725walk, 1);
-            Vertex.connectVertex(ref v202606walk, ref v202725walk, 1);
-            Vertex.connectVertex(ref v202606walk, ref v202737walk, 1);
-            Vertex.connectVertex(ref v202612walk, ref v202737walk, 1);
-            Vertex.connectVertex(ref v202612walk, ref v202749walk, 1);
+            Vertex.connectVertex(ref v202701walk, ref v202713corner, 2);
+            Vertex.connectVertex(ref v202713walk, ref v202725walk, 2);
+            Vertex.connectVertex(ref v202606walk, ref v202725walk, 2);
+            Vertex.connectVertex(ref v202606walk, ref v202737walk, 2);
+            Vertex.connectVertex(ref v202612walk, ref v202737walk, 2);
+            Vertex.connectVertex(ref v202612walk, ref v202749walk, 2);
 
-            Vertex.connectVertex(ref v202703walk, ref v202715walk, 1);
-            Vertex.connectVertex(ref v202727walk, ref v202715walk, 1);
-            Vertex.connectVertex(ref v202739walk, ref v202727walk, 1);
-            Vertex.connectVertex(ref v202739walk, ref v202751walk, 1);
+            Vertex.connectVertex(ref v202703walk, ref v202715walk, 2);
+            Vertex.connectVertex(ref v202727walk, ref v202715walk, 2);
+            Vertex.connectVertex(ref v202739walk, ref v202727walk, 2);
+            Vertex.connectVertex(ref v202739walk, ref v202751walk, 2);
             Vertex.connectVertex(ref v202750adj, ref v202749adj, 1);
             Vertex.connectVertex(ref v202750adj, ref v202751adj, 1);
             Vertex.connectVertex(ref v202751walk, ref v202752adj, 1);
             Vertex.connectVertex(ref v202752adj, ref v202753adj, 1);
             Vertex.connectVertex(ref v202753adj, ref v202754adj, 1);
 
-            Vertex.connectVertex(ref v202706walk, ref v202718walk, 1);
-            Vertex.connectVertex(ref v202730walk, ref v202718walk, 1);
-            Vertex.connectVertex(ref v202730walk, ref v202742walk, 1);
-            Vertex.connectVertex(ref v202754walk, ref v202742walk, 1);
+            Vertex.connectVertex(ref v202706walk, ref v202718walk, 2);
+            Vertex.connectVertex(ref v202730walk, ref v202718walk, 2);
+            Vertex.connectVertex(ref v202730walk, ref v202742walk, 2);
+            Vertex.connectVertex(ref v202754walk, ref v202742walk, 2);
 
             #endregion
 
@@ -1338,7 +1338,7 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref v2052adj, ref v2051adj, 1);
             Vertex.connectVertex(ref v2053adj, ref v2052adj, 1);
             Vertex.connectVertex(ref v2054adj, ref v2053adj, 1);
-            Vertex.connectVertex(ref v2012adj, ref v2049adj, 1);
+            Vertex.connectVertex(ref v2012adj, ref v2049adj, 3);
 
             Vertex.connectVertex(ref v2042adj, ref v202749adj, 1);
             Vertex.connectVertex(ref v2041adj, ref v202751adj, 1);
@@ -1698,7 +1698,7 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref v2057adj, ref v2058adj, 1);
             Vertex.connectVertex(ref v2059adj, ref v2058adj, 1);
             Vertex.connectVertex(ref v2059adj, ref v2060walk, 1);
-            Vertex.connectVertex(ref v2060walk, ref v205645walk, 1);
+            Vertex.connectVertex(ref v2060walk, ref v205645walk, 2);
             Vertex.connectVertex(ref v2060adj, ref v2061adj, 1);
             Vertex.connectVertex(ref v2062adj, ref v2061adj, 1);
             Vertex.connectVertex(ref v2063walk, ref v2062adj, 1);
@@ -1707,7 +1707,7 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref v2065adj, ref v2064adj, 1);
             Vertex.connectVertex(ref v2065adj, ref v2066walk, 1);
             Vertex.connectVertex(ref v2066walk, ref v205638walk, 1);
-            Vertex.connectVertex(ref v2068adj, ref v1060Sadj, 100);
+            Vertex.connectVertex(ref v2068adj, ref v1060Sadj, 100, true);
             Vertex.connectVertex(ref v2057walk, ref v2054adj, 1);
 
 
@@ -1900,7 +1900,7 @@ namespace FreeTime.Models
             Vertex v2092 = new Vertex(Int32.MaxValue, "2092", Constants.ExecutiveBoardRoomX, Constants.ExecutiveBoardRoomY, Constants.ExecutiveBoardRoomWidth, Constants.ExecutiveBoardRoomHeight);
             Vertex v2092adj = Vertex.makeAdjacent(ref v2092, "v2092adj", 2, "down", 62);
             this.nodes.Add(v2092adj);
-            Vertex v2092walk = Vertex.makeAdjacent(ref v2092adj, "v2092walk", 2, "left", 86);
+            Vertex v2092walk = Vertex.makeAdjacent(ref v2092adj, "v2092walk", 2, "left", 86, 2);
             this.nodes.Add(v2092walk);
 
             Vertex v2094 = new Vertex(Int32.MaxValue, "2094", Constants.Executive2094_2096X, Constants.Executive2094_2096Y, 52, 70);
@@ -1940,7 +1940,7 @@ namespace FreeTime.Models
             Vertex.connectVertex(ref v2087adj, ref v2096adj, 1);
             Vertex.connectVertex(ref v2088adj, ref v2096adj, 1);
             Vertex.connectVertex(ref v2089adj, ref v2088walk, 1);
-            Vertex.connectVertex(ref v2091adj, ref v2092walk, 1);
+            Vertex.connectVertex(ref v2091adj, ref v2092walk, 2);
             #endregion
 
 
@@ -2061,7 +2061,7 @@ namespace FreeTime.Models
 
             #region Connect Second Floor S side, extra rooms
             Vertex.connectVertex(ref v2101adj, ref v2102adj, 1);
-            Vertex.connectVertex(ref v2102adj, ref v205633walk, 1);
+            Vertex.connectVertex(ref v2102adj, ref v205633walk, 2);
             Vertex.connectVertex(ref v2101adj, ref v2108adj, 1);
             Vertex.connectVertex(ref v2105, ref v2108adj, 1);
             Vertex.connectVertex(ref v2107adj, ref v2108adj, 1);

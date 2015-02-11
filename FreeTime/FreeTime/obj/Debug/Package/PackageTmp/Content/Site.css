@@ -91,7 +91,7 @@ header, footer, nav, section {
 
 #employeeListAdmin {
 
-    width: 50%;
+    
     margin: 0 auto;
     height: 1000px;
     text-align: center;
@@ -101,6 +101,10 @@ header, footer, nav, section {
     #employeeListAdmin table {
             text-align:center;
             width: 100%;
+    }
+
+.adminControlsDIV {
+    display: inline-block;
     }
 
 #adminDialogTable {

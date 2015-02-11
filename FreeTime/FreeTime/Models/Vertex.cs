@@ -74,7 +74,7 @@ namespace FreeTime.Models
             this.neighbors = neigh;
         }
 
-        public static Vertex makeAdjacent(ref Vertex v, string n, int floor, string dir, int distance, int weight = 1)
+        public static Vertex makeAdjacent(ref Vertex v, string n, int floor, string dir, int distance, int weight = 1, bool isStairs = false)
         {
             Vertex newV = null;
             if (floor == 1)
@@ -97,14 +97,17 @@ namespace FreeTime.Models
                     break;
 
             }
+            weight = getWeight(newV, v);
 
+            if (isStairs)
+                weight = 10000;
             connectVertex(ref newV, ref v, weight);
 
             return newV;
             
         }
 
-        public static Vertex makeConnect(ref Vertex v, string n, int floor, int x, int y, int weight = 1)
+        public static Vertex makeConnect(ref Vertex v, string n, int floor, int x, int y, int weight = 1, bool isStairs = false)
         {
             Vertex newV = null;
             if (floor == 1)
@@ -113,13 +116,21 @@ namespace FreeTime.Models
                 n = "2travel" + n;
             newV = new Vertex(v.distance, n, 1 , 1 , 1, 1, x, y);
 
+            weight = getWeight(v, newV);
+            if (isStairs)
+                weight = 10000;
             connectVertex(ref newV, ref v, weight);
 
             return newV;
         }
 
 
-        public static void connectVertex(ref Vertex a, ref Vertex b, int weight = 1) {
+        public static void connectVertex(ref Vertex a, ref Vertex b, int weight = 1, bool isStairs = false) {
+            weight = getWeight(a, b);
+
+            if (isStairs)
+                weight = 10000;
+
             Edge to = new Edge(ref a, weight);
             b.addNeighbors(ref to);
             Edge from = new Edge(ref b, weight);
@@ -134,6 +145,18 @@ namespace FreeTime.Models
                     return;
             }
             this.neighbors.Add(edge);
+        }
+
+        public static int getWeight(Vertex a, Vertex b)
+        {
+            int diffX = (int)Math.Pow(a.midX - b.midX, 2);
+            int diffY = (int)Math.Pow(a.midY - b.midY, 2);
+            int distance = (int)Math.Sqrt(diffX + diffY);
+
+            return distance;
+
+
+
         }
 
     }

@@ -8,6 +8,14 @@
     self.currLName = ko.observable('');
     self.currDeskNo = ko.observable('');
     self.isDeskAssigned = ko.observable('');
+    self.findDesksOptions = ko.observableArray(['Select...', 'OPEN','Workstation', 'Executive', 'Office', 'Conference Room']);
+    self.findDesksValue = ko.observable('');
+    self.mapData = ko.observableArray([]);
+    self.currentTemplate = ko.observable('None');
+
+    self.stayOpen = false;
+
+
     self.getEmployee = function () {
         $.ajax({
             type: "GET",
@@ -31,8 +39,8 @@
 
     $('#updateEmployeeAdmin').click(function () {
         checkIfDeskAssigned($('#employeeDeskNo').val());
-        if (self.isDeskAssigned() != ' ') {
-            var doRemove = confirm('Desk' + $('#employeeDeskNo').val() + ' is assigned to ' + self.isDeskAssigned() + '. Employee will be replaced. Are you sure?');
+        if (self.isDeskAssigned() != 'OPEN') {
+            var doRemove = confirm('Desk ' + $('#employeeDeskNo').val() + ' is assigned to ' + self.isDeskAssigned() + '. Employee will be replaced. Are you sure?');
             if (doRemove) {
 
                 if (self.currDeskNo() != '') {
@@ -49,24 +57,27 @@
 
                     });
                 }
+
+                $.ajax({
+                    url: "../Admin/updateDeskNumber",
+                    type: "PUT",
+                    data: { fName: self.currFName(), lName: self.currLName(), deskNo:  $('#employeeDeskNo').val(), internalPhone: $('#employeeInternalPhone').val(), description:  $('#employeeDescription').val() },
+                    success: function (res) {
+                        alert(res);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Update desk number failed.');
+                    }
+
+                });
             }
             else {
                 return;
             }
         }
 
-        $.ajax({
-            url: "../Admin/updateDeskNumber",
-            type: "PUT",
-            data: { fName: self.currFName(), lName: self.currLName(), deskNo:  $('#employeeDeskNo').val(), internalPhone: $('#employeeInternalPhone').val(), description:  $('#employeeDescription').val() },
-            success: function (res) {
-                alert(res);
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                alert('Update desk number failed.');
-            }
+        
 
-        });
         closeDialog();
 
     });
@@ -77,7 +88,7 @@
             return;
         }
         checkIfDeskAssigned($('#employeeDeskNo').val());
-        if (self.isDeskAssigned() != ' ') {
+        if (self.isDeskAssigned() != 'OPEN') {
             var doRemove = confirm('Desk ' + $('#employeeDeskNo').val() + ' is assigned to ' + self.isDeskAssigned() + '. Employee will be removed. Are you sure?');
             if (doRemove) {
                 removeEmployee();
@@ -149,13 +160,16 @@
         });
 
         $.ajax({
-            url: "../Admin/getDeskNumber",
+            url: "../Admin/getDeskInfo",
             type: "GET",
             data: { fName: data.fName, lName: data.lName },
             async: false,
             success: function (res) {
-                $('#employeeDeskNo').val(res);
-                self.currDeskNo(res);
+                var retVal = JSON.parse(res);
+                alert(res);
+                $('#employeeDeskNo').val(retVal.deskNumber);
+                self.currDeskNo(retVal.deskNumber);
+                $('#employeeDescription').val(retVal.desc);
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert(xhr + "\n" + textStatus + "\n" + errorThrown);
@@ -165,7 +179,7 @@
         self.currLName(data.lName);
         $('#employeeFName').val(self.currFName());
         $('#employeeLName').val(self.currLName());
-        $('#employeeDescription').val(data.description);
+        
         $('#employeeInternalPhone').val(data.internalPhone);
         $('#employeeEmail').attr('href', 'mailto:' + data.email);
         $('#employeeEmail').text(data.email);
@@ -179,6 +193,7 @@
             url: "../Admin/findPerson",
             data: { searchTerm: self.searchTerm() },
             beforeSend: function () {
+                $('#adminContentContainer').css('display', 'block');
                 $('#findPersonInput').prop("disabled", true);
                 $('#findPersonButton').prop("disabled", true);
                 self.isSearching('block');
@@ -188,6 +203,7 @@
                 self.isSearching('none');
                 $('#findPersonButton').prop("disabled", false);
                 $('#findPersonInput').prop("disabled", false);
+                self.currentTemplate('findPerson');
 
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -196,6 +212,94 @@
         });
     }
 
+    self.findDesks = function () {
+        if (self.findDesksValue() == 'Select...')
+            return;
+        $.ajax({
+            url: '../Home/getMapJSON',
+            type: 'GET',
+            beforeSend: function () {
+                $('#adminContentContainer').css('display', 'block');
+
+                $('#findDesksSelect').prop("disabled", true);
+                $('#findDesksButton').prop("disabled", true);
+                self.isSearching('block');
+            },
+            success: function (res) {
+                var mapD = JSON.parse(res);
+                self.mapData(mapD.nodes);
+                $('#findDesksSelect').prop("disabled", false);
+                $('#findDesksButton').prop("disabled", false);
+                self.isSearching('none');
+                self.currentTemplate('findDesks');
+
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                alert(xhr + "\n" + textStatus + "\n" + errorThrown);
+            }
+        });
+    }
+
+
+
+    self.getFillColor = function (data) {
+        //Office, Conference Room, DM Station
+        //if (desc == 'Workstation' || desc == 'Intern Application and Web Design')
+        //    return '#D1DBBD';
+        //if (desc == 'Office')
+        //    return '#91AA9D';
+        //if (desc == 'Conference Room')
+        //    return '#3E606F';
+        //if (desc == 'DM Station')
+        //    return '#193441';
+
+        if (data.description == self.findDesksValue() || data.lName == self.findDesksValue())
+            return '#91AA9D';
+        else
+            return 'none';
+    }
+    
+
+    self.toggleOpenDialog = function () {
+        self.stayOpen = !self.stayOpen;
+    }
+
+    self.hideDetails = function () {
+        if (!self.stayOpen)
+            closeDialog();
+    }
+
+
+
+    self.showDetails = function (data) {
+
+        $('#personInfoDialog').dialog({
+            autoOpen: false,
+            height: 220,
+            width: 300,
+            resizable: false,
+            title: 'Details',
+            open: function () {
+                $(this).scrollTop(0);
+            },
+            close: function () {
+                self.stayOpen = false;
+            },
+            position: [currentMousePos.x, currentMousePos.y]
+        });
+        $('#personName').text('Name: ' + data.info.fName + ' ' + data.info.lName);
+        $('#internalPhone').text('Internal Phone: ' + data.info.internalPhone);
+        $('#personDeskNo').text('Desk: ' + data.info.deskNo);
+
+        if ((data.info.fName != '' && data.info.lName != '') && (data.info.fName != 'undefined' && data.info.lName != 'undefined')) {
+            $('#personEmail').attr('href', 'mailto:' + data.info.fName + '.' + data.info.lName + '@wirtzbev.com');
+
+            $('#personEmail').text(data.info.fName + '.' + data.info.lName + '@wirtzbev.com');
+        }
+
+
+        $('#personInfoDialog').dialog('open');
+    }
 
     var opts = {
         lines: 13, // The number of lines to draw

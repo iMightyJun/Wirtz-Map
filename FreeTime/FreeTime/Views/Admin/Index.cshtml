@@ -19,33 +19,40 @@
         <table id="adminDialogTable">
             <tr>
                 <td>Desk Number</td>
-                <td><input id="employeeDeskNo"  placeholder="No desk assigned"/></td>
+                <td>
+                    <input id="employeeDeskNo" placeholder="No desk assigned" /></td>
             </tr>
             <tr>
                 <td>First Name</td>
-                <td><input id="employeeFName" readonly="readonly" /></td>
+                <td>
+                    <input id="employeeFName" readonly="readonly" /></td>
             </tr>
             <tr>
                 <td>Last Name</td>
-                <td><input id="employeeLName" readonly="readonly" /></td>
+                <td>
+                    <input id="employeeLName" readonly="readonly" /></td>
             </tr>
             <tr>
                 <td>Phone</td>
-                <td><input id="employeeInternalPhone"/></td>
+                <td>
+                    <input id="employeeInternalPhone" /></td>
             </tr>
             <tr>
                 <td>Description</td>
-                <td><input id="employeeDescription" readonly="readonly" /></td>
+                <td>
+                    <input id="employeeDescription" readonly="readonly" /></td>
             </tr>
             <tr>
                 <td>Email</td>
                 <td><a id="employeeEmail" style="color: blue"></a></td>
             </tr>
             <tr>
-                <td colspan="2"><button id="updateEmployeeAdmin">Update</button></td>
+                <td colspan="2">
+                    <button id="updateEmployeeAdmin">Update</button></td>
             </tr>
             <tr>
-                <td colspan="2"><button id="removeEmployeeAdmin">Remove from Map</button></td>
+                <td colspan="2">
+                    <button id="removeEmployeeAdmin">Clear Desk</button></td>
             </tr>
         </table>
     </div>
@@ -54,12 +61,26 @@
 
 
     <div id="employeeListAdmin">
-        <p>Find specific person</p>
-        <p>
-            <input id="findPersonInput" data-bind="value: searchTerm, valueUpdate: 'keyup'" />
-            <button id="findPersonButton" data-bind="click: findPerson">Find Person</button>
-        </p>
+        <div class="adminControlsDIV">
+            <p>Find specific person</p>
+            <p>
+                <input id="findPersonInput" data-bind="value: searchTerm, valueUpdate: 'keyup'" />
+                <button id="findPersonButton" data-bind="click: findPerson">Find Person</button>
+                
+            </p>
+        </div>
+        <div class="adminControlsDIV">
+            <p>
+                Find Desks
+            </p>
+                            <select id="findDesksSelect" data-bind="value: findDesksValue, options: findDesksOptions"></select>
+
+            <button id="findDesksButton" data-bind="click: findDesks">Find Desks</button>
+        </div>
+
         <div id="loadingSpinAdmin" data-bind="style: {display: isSearching }"></div>
+        <div id="adminContentContainer" style="display: none">
+        <!-- ko if: currentTemplate() == 'findPerson' -->
         <table>
             <tr>
                 <td>First Name</td>
@@ -73,6 +94,48 @@
             <tr data-bind="template: { name: 'listOfEmployees-Row', data: $data }"></tr>
             <!-- /ko -->
         </table>
+        <!-- /ko -->
+        
+        <!-- ko if: currentTemplate() == 'findDesks' -->
+           <div class="mapSearchFirstFloor" style="border: 2px solid;  zoom: 85%;">
 
+            <svg height="800px" width="2130px" >
+                
+
+                <!-- ko foreach: mapData   -->
+                <!-- ko if: $data.info != null -->
+                <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("1") == 0-->
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $parent.getFillColor($data.info) }" stroke="black" />
+                    <circle class="employeePoint" r="8" stroke="black" fill="red" data-bind="click: function() { $parent.toggleOpenDialog($element); } , attr: { cx: midX , cy: midY }, event: { mouseover: function() { $parent.showDetails($data) }, mouseout: function() { $parent.hideDetails() } }" />
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- /ko -->
+            </svg>
+
+        </div>
+
+        <div class="mapSearchSecondFloor" style="border: 2px solid;  zoom: 85%;">
+
+            <svg height="800px" width="2130px" >
+                <path d="M926 0 V660" stroke="black" stroke-width="2" fill="none"/>
+                <path d="M1236 0 V445" stroke="black" stroke-width="2" fill="none"/>
+                <path d="M926 660 L940 690" stroke="black" stroke-width="2" fill="none"/>
+
+                <!-- ko foreach: mapData   -->
+                <!-- ko if: $data.info != null -->
+
+                <!-- ko if: $data.xCoord != 0 && $data.info.deskNo.indexOf("2") == 0 -->
+                    <rect data-bind="attr: { width: $data.mWidth, height: $data.mHeight, x: $data.xCoord, y: $data.yCoord, fill: $parent.getFillColor($data.info) }" stroke="black" />
+                    <circle r="8" class="employeePoint" stroke="black" fill="red" data-bind="click: function() { $parent.toggleOpenDialog(); } , attr: { cx: midX , cy: midY },  event: { mouseover: function() { $parent.showDetails($data) }, mouseout: function() { $parent.hideDetails() } }" />
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- /ko -->
+
+            </svg>
+
+
+        </div>
+        <!-- /ko -->
+        </div>
     </div>
 </div>
